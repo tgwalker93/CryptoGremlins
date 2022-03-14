@@ -40,7 +40,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-webpack-plugin": "^0.1.2",
-    "concurrently": "^3.5.0",
+    "concurrently": "^3.6.1",
     "nodemon": "^1.11.0"
   }
 }

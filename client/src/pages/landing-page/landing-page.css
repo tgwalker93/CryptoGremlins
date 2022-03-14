@@ -1,0 +1,82 @@
+
+#container {
+    margin: 25px;
+    margin-top: 50px;
+    color: #282828;
+}
+#hline {
+  visibility: hidden;
+}
+#textColP{
+    font-size: 40 !important;
+}
+#firstName, #lastName {
+    text-transform: capitalize;
+} 
+#firstName:focus, #lastName:focus {
+    text-transform: none;
+}
+#guestCountError {
+    color: #a94442;
+}
+.help-block {
+    text-align: right;
+}
+#mainRow {
+    color: #282828;
+    background-color: #FFFFFF;
+}
+button {
+    border-radius: 100px !important;
+    border: 1px solid #282828 !important;
+    background-color: #FFFFFF !important;
+    color: #282828 !important;
+    margin-top: 10px;
+}
+
+button:hover {
+    -webkit-transform: scale(1.03);
+    -ms-transform: scale(1.03);
+    transform: scale(1.03);
+}
+.btn:focus,.btn:active {
+   outline: none !important;
+   box-shadow: none;
+}
+
+@media (min-width: 768px) {
+#formCol {
+    width: 45%;
+}
+#textColP p {
+    font-size: 18px;
+    
+}
+#textColP {
+    width: 85%;
+}
+}
+
+@media (max-width: 760px) {
+    #container {
+        margin-top: 0px;
+        margin-bottom: 50px;
+    }
+    #procoreLogo {
+        width: 90%;
+    }
+    #formHeader {
+        margin-bottom: 10px;
+    }
+    #textColP {
+    margin-bottom: 50px;
+    }
+    .col-sm-6 {
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+    #hline {
+        visibility: initial;
+        border-color: #282828;
+    }
+}

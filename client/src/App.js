@@ -10,9 +10,6 @@ const App = () =>
     <Routes>
       <Route exact path="/landing-page" element={<LandingPage/>} />
       <Route exact path="/thank-you" element={<ThankYouPage/>} />
-      {/* <Route exact path="/" render={() => (
-        <Navigate to="/landing-page" />
-      )} /> */}
       <Route path="/" element={<Navigate replace to="/landing-page" />} />
       <Route element={<LandingPage/>} />
     </Routes>

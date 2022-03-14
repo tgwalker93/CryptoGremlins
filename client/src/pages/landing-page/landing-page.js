@@ -108,8 +108,9 @@ class LandingPage extends Component {
                 "emailAddress": this.state.emailAddress,
                 "phoneNumber": this.state.phoneNumber
             }
+            cookies.set("demo-requested", userObj, { path: "/" });
 
-             this.setState({ navigateToThankYou: true });
+            this.setState({ navigateToThankYou: true });
         }
     }
 

@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import { Col, Row, Container } from "../../components/Grid";
 import "./thank-you.css";
 import Cookies from 'universal-cookie';
+import { Navigate } from 'react-router-dom';
 
 
 class ThankYou extends Component {
     constructor(props) {
         super(props)
         this.state = {
+        navigateToLandingPage: false,
         firstName: "",
         lastName: "",
         emailAddress:"",
@@ -31,7 +33,7 @@ class ThankYou extends Component {
         const cookies = new Cookies();
         //Here we check if the cookie "demo-requested" exists. If not, then we send user back to landing page.
         if (!cookies.get("demo-requested")){
-            this.props.history.push("/landing-page");
+            this.setState({ navigateToLandingPage: true });
         } else{
         var userData = cookies.get("demo-requested");
         this.setState({firstName:userData.firstName});
@@ -45,7 +47,9 @@ class ThankYou extends Component {
     render() {
         return (
             <Container fluid="true">
-
+                {this.state.navigateToLandingPage && (
+                <Navigate to="/landing-page" replace={true} />
+                )}
                 <Row>
                     <Col size="md-12">
                         <div className="thankYouText">

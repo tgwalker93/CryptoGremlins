@@ -24,9 +24,9 @@ var CommentSchema = new Schema({
 
 // Remember, Mongoose will automatically save the ObjectIds of the comments
 
-BugCommentSchema.index({ '$**': 'text' });
+CommentSchema.index({ '$**': 'text' });
 
-// Create the bugComment model with the bugComment
+// Create the comment model with the comment
 var Comment = mongoose.model("Comment", CommentSchema);
 
 // Export the Note model

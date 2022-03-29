@@ -8,10 +8,10 @@ var Comment = require("../../db/models/comment.js");
 
 //Comments Routes BEGIN ---------------------------------------------------------------
 
-//DELETE A Bug Comment
+//DELETE A Comment
 app.post("/deleteComment/:id", function (req, res) {
 
-    BugComment.findByIdAndRemove(req.params.id, function (error, doc) {
+    Comment.findByIdAndRemove(req.params.id, function (error, doc) {
         // Log any errors
         if (error) {
             console.log(error);
@@ -36,7 +36,7 @@ app.post("/saveComment", function (req, res) {
 
 
 
-    // Create a new bug comment and pass the req.body to the entry
+    // Create a new comment and pass the req.body to the entry
     let resultObj = {
         title: req.body.text,
         text: req.body.text,
@@ -56,25 +56,8 @@ app.post("/saveComment", function (req, res) {
         // Or log the doc
         else {
             resultObj.commentDoc = doc;
-            //Now that we saved the bugs, we need to find the Organization and add to it's array the new bug.
-            // Use the organization id to find and update its' bugs
-            Organization.findOneAndUpdate({ "_id": req.body.commentID }, { $push: { "comments": doc._id } },
-                { safe: true, upsert: false })
-                // Execute the above query
-                .exec(function (err, doc) {
-
-
-                    // Log any errors
-                    if (err) {
-                        console.log(err);
-                        resultObj.error = true;
-                        resultObj.errorObj = err;
-                        res.send(resultObj);
-                    }
-                    else {
-                         res.send(resultObj);
-                    }
-                });
+ 
+            res.send(resultObj);
         }
     });
 

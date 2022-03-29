@@ -1,39 +1,28 @@
-# ProcoreProject
+# Crypto Gremlins
 
-This application was built with the `NodeJS`, `ReactJS`, `Bootstrap` frameworks. It also uses a few different libraries, as seen below. This is a simple application that has a landing page that gathers information from the user via a form, and displays it on the "Thank you" page. The form includes form validation for all fields. The data is transferred by a cookie. I used the `react-cookie` npm package to help create the cookie and gather data from it. 
+This application was built with the `NodeJS`, `ReactJS`, `MongoDB`, and `Bootstrap` frameworks. It also uses a few different libraries, as seen below.
 
 ## Getting Started
 
-You can refer to the link here to see the application deployed on Heroku: https://procoreproject-tylerwalker.herokuapp.com/
-
-
-## Screenshots
-
-
-* **Landing Page**
-[![/client/src/images/LandingPage.PNG](/client/src/images/LandingPage.PNG)](/client/src/images/LandingPage.PNG)
-
-* **Thank You Page**
-[![/client/src/images/ThankYou.PNG](/client/src/images/ThankYou.PNG)](/client/src/images/ThankYou.PNG)
+You can refer to the link here to see the application deployed on Heroku: https://crypto-gremlins.herokuapp.com/
 
 
 ## Libraries Used
 
 * [react-router](https://www.npmjs.com/package/react-router) 
-* [react-cookie](https://www.npmjs.com/package/universal-cookie) 
+* [react-cookie](https://www.npmjs.com/package/universal-cookie)
 
 ## Author
 
-* **Tyler Walker** - *Sole Developer* - [tgwalker93](https://github.com/tgwalker93)
+* **Tyler Walker** - *Developer* - [tgwalker93](https://github.com/tgwalker93)
+* **Adam Haze** - *Developer* - [adamhaze](https://github.com/adamhaze)
+* **Alex Orlowski** - *Developer* - [aorlowski-cu](https://github.com/aorlowski-cu)
+* **Chidima Okafor** - *Developer* - [chok2409](https://github.com/chok2409)
 
 
 
 ---
-# Below is default information on React App
-
-# Create React Express App
-
-## About This Boilerplate
+## Getting Started
 
 This setup allows for a Node/Express/React app which can be easily deployed to Heroku.
 
@@ -44,16 +33,16 @@ The front-end React app will auto-reload as it's updated via webpack dev server,
 Start by installing front and backend dependencies. While in this directory, run the following commands:
 
 ```
-yarn install
+npm install
 cd client
-yarn install
+npm install
 cd ..
 ``
 
 After both installations complete, run the following command in your terminal:
 
 ```
-yarn start
+npm start
 ```
 
 That's it, your app should be running on <http://localhost:3000>. The Express server should intercept any AJAX requests from the client.
@@ -65,7 +54,7 @@ After confirming that you have an up to date git repository and a Heroku app cre
 1. Build the React app for production by running the following command:
 
 ```
-yarn build
+npm run build
 ```
 
 2. Add and commit all changes to git

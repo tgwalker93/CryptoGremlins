@@ -37,14 +37,14 @@ app.post("/saveComment", function (req, res) {
 
 
     // Create a new bug comment and pass the req.body to the entry
-    let result = {
+    let resultObj = {
         title: req.body.text,
         text: req.body.text,
         userWhoMadeComment: req.body.userWhoMadeComment,
         timestamp: finalDateFormat
     }
 
-    var entry = new Comment(result);
+    var entry = new Comment(resultObj);
 
     // Now, save that entry to the db
     entry.save(function (err, doc) {
@@ -55,7 +55,7 @@ app.post("/saveComment", function (req, res) {
         }
         // Or log the doc
         else {
-            resultObj.bugDoc = doc;
+            resultObj.commentDoc = doc;
             //Now that we saved the bugs, we need to find the Organization and add to it's array the new bug.
             // Use the organization id to find and update its' bugs
             Organization.findOneAndUpdate({ "_id": req.body.commentID }, { $push: { "comments": doc._id } },
@@ -72,8 +72,6 @@ app.post("/saveComment", function (req, res) {
                         res.send(resultObj);
                     }
                     else {
-                        // Updating Organization was success, added new Organization DOc, and send back to client
-                        resultObj.organizationDoc = doc;
                          res.send(resultObj);
                     }
                 });

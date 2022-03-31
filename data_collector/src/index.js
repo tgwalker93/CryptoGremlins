@@ -1,6 +1,6 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
+// import React from "react";
+// import ReactDOM from "react-dom";
+// import App from "./App";
 import {requestListing} from './services/makeRequests';
 
 
@@ -10,4 +10,4 @@ const job = schedule.scheduleJob('*/1 * * * *', function() {
   requestListing();
 });
 
-ReactDOM.render(<App />, document.getElementById("root"));
+// ReactDOM.render(<App />, document.getElementById("root"));

@@ -1,7 +1,9 @@
 
-import {requestListing} from './services/makeRequests';
+// import {requestListing} from './services/makeRequests';
 
-requestListing();
+var request = require('./services/makeRequests');
+
+request;
 
 // const schedule = require('node-schedule');
 // const job = schedule.scheduleJob('*/1 * * * *', function() {

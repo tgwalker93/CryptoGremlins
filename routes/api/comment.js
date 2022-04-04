@@ -51,7 +51,7 @@ app.post("/saveComment", function (req, res) {
         // Log any errors
         if (err) {
             console.log(err);
-            res.json("error occured");
+            res.send("An error occured while saving to database.");
         }
         // Or log the doc
         else {

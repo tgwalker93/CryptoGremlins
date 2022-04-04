@@ -3,12 +3,15 @@
 */
 const mongoose = require('mongoose');
 let MONGO_URL
-const MONGO_LOCAL_URL = 'mongodb://localhost:27017'
+const MONGO_LOCAL_URL = 'mongodb://localhost:27017/cryptogremlins'
 
-mongoose.set("useUnifiedTopology", true);
-mongoose.set('useNewUrlParser', true);
-mongoose.set('useFindAndModify', false);
-mongoose.set('useCreateIndex', true);
+//mongoose.set("useUnifiedTopology", true);
+// mongoose.set('useNewUrlParser', true);
+// mongoose.set('useFindAndModify', false);
+// mongoose.set('useCreateIndex', true);
+// mongoose.set('bufferCommands', false)
+
+console.log("before I set connection");
 
 // Connect to the Mongo DB
 if (process.env.MONGODB_URI) {

@@ -1,6 +1,15 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const routes = require("./routes");
+const session = require('express-session');
+const mongoose = require("mongoose");
+const MongoStore = require('connect-mongo')(session);
+const dbConnection = require('./db'); // loads our connection to the mongo database
+
+var dotenv = require('dotenv');
+
+//loading .env file
+dotenv.config();
 
 const app = express();
 

@@ -38,9 +38,9 @@ app.post("/saveComment", function (req, res) {
 
     // Create a new comment and pass the req.body to the entry
     let resultObj = {
-        title: req.body.text,
-        text: req.body.text,
-        userWhoMadeComment: req.body.userWhoMadeComment,
+        title: req.body.firstName,
+        text: req.body.firstName,
+        userWhoMadeComment: req.body.firstName,
         timestamp: finalDateFormat
     }
 
@@ -51,13 +51,14 @@ app.post("/saveComment", function (req, res) {
         // Log any errors
         if (err) {
             console.log(err);
-            res.json(err);
+            res.json("error occured");
         }
         // Or log the doc
         else {
-            resultObj.commentDoc = doc;
- 
-            res.send(resultObj);
+            //resultObj.commentDoc = doc;
+            console.log("in the save comment backend");
+            console.log(doc)
+            res.send(doc);
         }
     });
 

@@ -3,7 +3,7 @@
 */
 const mongoose = require('mongoose');
 let MONGO_URL
-const MONGO_LOCAL_URL = 'mongodb://localhost/cryptogremlins'
+const MONGO_LOCAL_URL = 'mongodb://localhost:27017'
 
 mongoose.set("useUnifiedTopology", true);
 mongoose.set('useNewUrlParser', true);

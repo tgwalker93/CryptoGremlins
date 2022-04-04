@@ -23,7 +23,6 @@ var CommentSchema = new Schema({
 });
 
 // Remember, Mongoose will automatically save the ObjectIds of the comments
-
 CommentSchema.index({ '$**': 'text' });
 
 // Create the comment model with the comment

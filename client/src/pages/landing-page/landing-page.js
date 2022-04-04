@@ -3,6 +3,7 @@ import { Col, Row, Container } from "../../components/Grid";
 import { Input, FormBtn } from "../../components/Form";
 import Cookies from 'universal-cookie';
 import { Navigate } from 'react-router-dom';
+import API from "../../utils/API";
 import "./landing-page.css";
 class LandingPage extends Component {
     constructor(props){
@@ -110,8 +111,17 @@ class LandingPage extends Component {
             }
             cookies.set("demo-requested", userObj, { path: "/" });
 
+            //Save Comment in DB
+            API.saveComment(userObj)
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+
             this.setState({ navigateToThankYou: true });
         }
+
+        
+
+         
     }
 
     render() {

@@ -8,6 +8,7 @@ function request(method, url) {
         xhr.onload = resolve;
         xhr.onerror = reject;
         xhr.send();
+        resolve('Success');
     });
 }
 

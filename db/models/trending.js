@@ -5,18 +5,11 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 // Create the Note schema
-var CommentSchema = new Schema({
-    title: {
-        type: String
+var TrendingSchema = new Schema({
+    numComments: {
+        type: Number
     },
-    text: {
-        type: String
-    },
-    userWhoMadeComment: {
-        type: String
-    },
-    //date that user made the comment
-    timestamp: {
+    updated: {
         type: String,
         default: Date.now().toString()
     },
@@ -26,10 +19,10 @@ var CommentSchema = new Schema({
 });
 
 // Remember, Mongoose will automatically save the ObjectIds of the comments
-CommentSchema.index({ '$**': 'text' });
+TrendingSchema.index({ '$**': 'text' });
 
 // Create the comment model with the comment
-var Comment = mongoose.model("Comment", CommentSchema);
+var Trending = mongoose.model("Trending", TrendingSchema);
 
 // Export the Note model
-module.exports = Comment;
+module.exports = Trending;

@@ -29,7 +29,8 @@ var ListingSchema = new Schema({
 
 });
 
-
+// Remember, Mongoose will automatically save the ObjectIds of the comments
+ListingSchema.index({ '$**': 'text' });
 
 // Create the Listing model
 var Listing = mongoose.model("Listing", ListingSchema);

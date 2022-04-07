@@ -1,3 +1,15 @@
+
+const axios = require('axios');
+
+
+async function request(url) {
+    const response = await axios.get(url);
+    return response.data;
+}
+
+module.exports = request;
+
+
 // var XMLHttpRequest = require('xhr2');
 
 
@@ -13,13 +25,4 @@
 // }
 
 // module.exports = request;
-
-const axios = require('axios');
-
-async function request(url) {
-    const response = await axios.get(url);
-    return response.data;
-}
-
-module.exports = request;
 

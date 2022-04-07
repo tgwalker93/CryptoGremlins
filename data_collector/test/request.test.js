@@ -1,16 +1,34 @@
 require("regenerator-runtime/runtime");
 const request = require('../src/services/request');
-// const make_request = require('../src/collectData')
+const axios = require('axios');
 
-var url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=';
-var apikey = {
-  key: '461f750d-2657-4821-89f9-4b0659d0f35a'
-}
+jest.mock('axios');
 
-test('request successful', async () => {
-    const btc = await request(url+apikey.key);
-    expect(btc.data[0].symbol).toEqual('BTC');
+it('first coin from request listing is Bitcoin', async () => {
+  axios.get.mockResolvedValue({
+    data: [
+      {
+        name: 'Bitcoin',
+        ticker: 'BTC'
+      },
+      {
+        name: 'Ethereum',
+        ticker: 'ETH'
+      }
+    ]
+  });
+  const listing = await request('some_url');
+  expect(listing[0].ticker).toEqual('BTC');
+  expect(listing[1].ticker).toEqual('ETH');
 });
+
+
+
+
+
+
+
+
 
 // test('request successful', () => {
 //   return expect(make_request()).toBe(0);

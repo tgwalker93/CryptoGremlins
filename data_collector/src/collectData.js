@@ -1,8 +1,8 @@
 
-// import {requestListing} from './services/makeRequests';
-
 var request = require('./services/request');
 var Listing = require('../../db/models/listing.js');
+var db = require('../../db/index.js');
+
 var apikey = {
     key: '461f750d-2657-4821-89f9-4b0659d0f35a'
   }
@@ -10,8 +10,22 @@ var apikey = {
 async function get_data() {
 
     const data = request('https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=' + apikey.key)
-    .then(function (response) {
-        console.log(response.data[0]);
+    .then(async function (response) {
+        var listingsAll = response.data;
+        for (var i = 0; i < listingsAll.length; i++){
+            const listing = {
+                name: listingsAll[i].name,
+                ticker: listingsAll[i].symbol,
+                price: listingsAll[i].quote.USD.price,
+                marketCap: listingsAll[i].quote.USD.market_cap,
+                volume24h: listingsAll[i].quote.USD.volume_24h,
+                circulatingSupply: listingsAll[i].circulating_supply,
+                timeStamp: listingsAll[i].last_updated
+            }
+            let dbListing = new Listing(listing);
+            await dbListing.save();
+        }
+        console.log('finished writing listings to DB...');
     }).catch(error => {
         console.log(error);
     });

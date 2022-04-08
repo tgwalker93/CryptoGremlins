@@ -13,7 +13,9 @@ export default {
     getComments: function(commentData) {
         return axios.get("/api/comment/getComments/" + commentData.mongoID);
     },
-
+    getTrending: function() {
+        return axios.get("/api/trending/list");
+    },
    
     
 

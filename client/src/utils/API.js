@@ -16,6 +16,9 @@ export default {
     getTrending: function() {
         return axios.get("/api/trending/list");
     },
+    getAllCryptoProjects: function() {
+        return axios.get("/api/listing/getAllCryptoProjects");
+    }
    
     
 

@@ -23,13 +23,6 @@ it('first coin from request listing is Bitcoin', async () => {
 });
 
 
-
-
-
-
-
-
-
 // test('request successful', () => {
 //   return expect(make_request()).toBe(0);
 // });

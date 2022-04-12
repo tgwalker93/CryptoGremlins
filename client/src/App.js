@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import LandingPage from "./pages/landing-page";
 import ThankYouPage from "./pages/thank-you";
+import CryptoListPage from "./pages/crypto-list";
 import "./App.css";
 
 const App = () => 
@@ -10,7 +11,8 @@ const App = () =>
     <Routes>
       <Route exact path="/landing-page" element={<LandingPage/>} />
       <Route exact path="/thank-you" element={<ThankYouPage/>} />
-      <Route path="/" element={<Navigate replace to="/landing-page" />} />
+      <Route exact path="/crypto-list" element={<CryptoListPage/>} />
+      <Route path="/" element={<Navigate replace to="/crypto-list" />} />
       <Route element={<LandingPage/>} />
     </Routes>
   </div>

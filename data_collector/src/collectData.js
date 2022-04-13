@@ -13,6 +13,7 @@ async function get_data() {
     .then(async function (response) {
         var listingsAll = response.data;
         for (var i = 0; i < listingsAll.length; i++){
+            const dateTime = new Date(listingsAll[i].last_updated);
             const listing = {
                 name: listingsAll[i].name,
                 ticker: listingsAll[i].symbol,
@@ -20,7 +21,7 @@ async function get_data() {
                 marketCap: listingsAll[i].quote.USD.market_cap,
                 volume24h: listingsAll[i].quote.USD.volume_24h,
                 circulatingSupply: listingsAll[i].circulating_supply,
-                timeStamp: listingsAll[i].last_updated
+                timeStamp: dateTime.toDateString().concat(', @ ', dateTime.toLocaleTimeString('en-US')) 
             }
             let dbListing = new Listing(listing);
             await dbListing.save();

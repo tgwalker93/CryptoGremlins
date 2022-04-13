@@ -25,7 +25,12 @@ var ListingSchema = new Schema({
     timeStamp: {
         type: String,
         default: Date.now().toString()
-    }
+    },
+    // This only saves one comment's ObjectId
+    comments: [{
+        type: Schema.Types.ObjectId,
+        ref: "Comment"
+    }]
 
 });
 

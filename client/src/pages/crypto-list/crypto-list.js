@@ -68,7 +68,9 @@ class CryptoListPage extends Component {
 
 
 
-
+    handleCommentButtonClick = () => {
+        window.location.reload(false);
+    }
 
     //CALLS THIS WHEN THE COMPONENT MOUNTS, basically "on page load"
     componentDidMount() {
@@ -118,7 +120,7 @@ class CryptoListPage extends Component {
                                                             <td id="marketCapColumn" className="cryptoListingsViewTable_td">{listing.marketCap}</td>
                                                             <td id="volume24hColumn" className="cryptoListingsViewTable_td">{listing.volume24h}</td>
                                                             <td id="circulatingSupplyColumn" className="cryptoListingsViewTable_td">{listing.circulatingSupply}</td>
-                                                            <td id="viewComments" className="cryptoListingsViewTable_td"><FormBtn>View Comments</FormBtn></td>
+                                                            <td id="viewComments" className="cryptoListingsViewTable_td"><Link to={"/profile/"+ listing._id} className="cryptoProfileButton"><FormBtn id="cryptoProfileButton">Comments</FormBtn> </Link></td>
                                                         </tr>
                                          
                                                 )

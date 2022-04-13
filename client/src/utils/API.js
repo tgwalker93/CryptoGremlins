@@ -18,8 +18,9 @@ export default {
     },
     getAllCryptoProjects: function() {
         return axios.get("/api/listing/getAllCryptoProjects");
+    },
+    getSpecificCryptoProjectAndComments: function(cryptoProjectID) {
+        return axios.get("/api/listing/getAllCommentsOfCryptoProject/" + cryptoProjectID);
     }
    
-    
-
 };

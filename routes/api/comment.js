@@ -5,6 +5,7 @@ var app = express.Router();
 
 //Database Models 
 var Comment = require("../../db/models/comment.js");
+var Listing = require("../../db/models/listing.js");
 
 //Comments Routes BEGIN ---------------------------------------------------------------
 
@@ -38,9 +39,9 @@ app.post("/saveComment", function (req, res) {
 
     // Create a new comment and pass the req.body to the entry
     let resultObj = {
-        title: req.body.firstName,
-        text: req.body.firstName,
-        userWhoMadeComment: req.body.firstName,
+        title: req.body.text,
+        text: req.body.text,
+        userWhoMadeComment: req.body.userWhoMadeComment,
         timestamp: finalDateFormat
     }
 
@@ -55,10 +56,20 @@ app.post("/saveComment", function (req, res) {
         }
         // Or log the doc
         else {
-            //resultObj.commentDoc = doc;
-            console.log("in the save comment backend");
-            console.log(doc)
-            res.send(doc);
+            // Use the comment id to find and update the crypto project its attached to
+            Listing.findOneAndUpdate({ "_id": req.body.cryptoProjectID }, { $push: { "comments": doc._id } },
+                { safe: true, upsert: true })
+                // Execute the above query
+                .exec(function (err, doc) {
+                    // Send any errors back to client
+                    if (err) {
+                        res.json(err);
+                    }
+                    else {
+                        // Or send the document to the browser
+                        res.send(doc);
+                    }
+                });
         }
     });
 

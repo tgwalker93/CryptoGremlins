@@ -1,6 +1,6 @@
 require("regenerator-runtime/runtime");
-const analyze = require('../analyzer')
-var Comment = require("../../db/models/comment.js");
+// const analyze = require('../analyzer')
+// var Comment = require("../../db/models/comment.js");
 
 
 

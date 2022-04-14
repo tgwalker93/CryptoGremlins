@@ -1,3 +1,4 @@
+import React, { Component } from "react";
 import CryptoProfilePage from "./crypto-profile";
 import { Link, useParams, useLocation  } from "react-router-dom";
 

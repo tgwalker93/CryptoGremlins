@@ -43,9 +43,10 @@ app.post("/saveComment", function (req, res) {
         title: req.body.text,
         text: req.body.text,
         userWhoMadeComment: req.body.userWhoMadeComment,
-        timestamp: finalDateFormat
+        timestamp: finalDateFormat,
+        coinTicker: req.body.ticker
     }
-
+console.log(resultObj);
     var entry = new Comment(resultObj);
 
     // Now, save that entry to the db

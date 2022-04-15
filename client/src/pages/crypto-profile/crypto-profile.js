@@ -86,7 +86,8 @@ class CryptoProfilePage extends Component {
             var commentObj = {
                 text: this.state.currentComment,
                 userWhoMadeComment: this.state.currentUserName,
-                cryptoProjectID: this.state.id
+                cryptoProjectID: this.state.id,
+                ticker: this.state.ticker
             }
             API.saveComment(commentObj)
                 .then(res => this.getSpecificCryptoProjectAndComments())

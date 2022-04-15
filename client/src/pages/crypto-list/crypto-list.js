@@ -11,7 +11,8 @@ class CryptoListPage extends Component {
         this.state = {
             formErrors: { name: "" },
             cryptoProjectsReceivedFromDB: false,
-            cyrptoProjects: null
+            cyrptoProjects: null,
+            trendings: []
         };
 
     }
@@ -25,7 +26,7 @@ class CryptoListPage extends Component {
         this.setState({ [e.target.id]: e.target.value });
     }
     //This method will handle all the form validation
-    validateFields() {   
+    validateFields() {
 
 
     }
@@ -56,7 +57,8 @@ class CryptoListPage extends Component {
             .then(response => {
                 if (!response.data.error) {
                     console.log(response.data);
-                    this.setState({ cryptoProjectsReceivedFromDB: true,
+                    this.setState({
+                        cryptoProjectsReceivedFromDB: true,
                         cyrptoProjects: response.data.docs
                     })
                 } else {
@@ -66,7 +68,26 @@ class CryptoListPage extends Component {
 
     }
 
-
+    getTrendingCoins() {
+        API.getTrending()
+            .then(
+                (result) => {
+                    this.setState({
+                        isLoaded: true,
+                        trendings: result.data
+                    });
+                },
+                // Note: it's important to handle errors here
+                // instead of a catch() block so that we don't swallow
+                // exceptions from actual bugs in components.
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
+                }
+            )
+    }
 
     handleCommentButtonClick = () => {
         window.location.reload(false);
@@ -75,11 +96,12 @@ class CryptoListPage extends Component {
     //CALLS THIS WHEN THE COMPONENT MOUNTS, basically "on page load"
     componentDidMount() {
         this.getCryptoProjectsFromDB();
-     } 
+        this.getTrendingCoins();
+    }
 
     render() {
         return (
-             <Container id="containerViewCryptoProjects" fluid="true">
+            <Container id="containerViewCryptoProjects" fluid="true">
                 <Row id="mainRow">
                     <Col size="sm-12">
                         <div className="jumbotron jumbotron-fluid">
@@ -88,31 +110,37 @@ class CryptoListPage extends Component {
                             </Container>
                         </div>
                         <br />
-                        <br />                
+                        <br />
 
-                            {this.state.cryptoProjectsReceivedFromDB ? 
-                            
+                        {this.state.cryptoProjectsReceivedFromDB ?
+
                             <div>
+                                                        <h1>These are the super hot trending coins</h1>
+                        {this.state.trendings.map(item => (
+                            <h2>
+                                Coin name: {item.coinTicker} | Number of recent comments: {item.numComments}
+                            </h2>
+                        ))}
                                 <hr />
                                 <h1 className="cryptoProjectsTitle">CryptoProjects</h1>
                                 {this.state.cyrptoProjects.length ? (
                                     <div>
-                                    <table id="cry" className="table table-hover cryptolistingsView_table">
-                                        <thead id="cryptoListingsViewTable_head" className="thead-dark">
-                                            <tr>
-                                                <th className="cryptoListingsViewTable_th" scope="col">Name</th>
-                                                <th className="cryptoListingsViewTable_th" scope="col">Ticker</th>
-                                                <th className="cryptoListingsViewTable_th" scope="col">Price</th>
-                                                <th className="cryptoListingsViewTable_th" scope="col">Market Cap</th>
-                                                <th className="cryptoListingsViewTable_th" scope="col">Volume 24h</th>
-                                                <th className="cryptoListingsViewTable_th" scope="col">Circulating Supply</th>
-                                                <th className="cryptoListingsViewTable_th" scope="col"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {this.state.cyrptoProjects.map(listing => {
-                                                return (
-                                                        
+                                        <table id="cry" className="table table-hover cryptolistingsView_table">
+                                            <thead id="cryptoListingsViewTable_head" className="thead-dark">
+                                                <tr>
+                                                    <th className="cryptoListingsViewTable_th" scope="col">Name</th>
+                                                    <th className="cryptoListingsViewTable_th" scope="col">Ticker</th>
+                                                    <th className="cryptoListingsViewTable_th" scope="col">Price</th>
+                                                    <th className="cryptoListingsViewTable_th" scope="col">Market Cap</th>
+                                                    <th className="cryptoListingsViewTable_th" scope="col">Volume 24h</th>
+                                                    <th className="cryptoListingsViewTable_th" scope="col">Circulating Supply</th>
+                                                    <th className="cryptoListingsViewTable_th" scope="col"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {this.state.cyrptoProjects.map(listing => {
+                                                    return (
+
                                                         <tr className="cryptoListingsViewTable_tr" key={listing._id}>
                                                             <td id="nameColumn" className="cryptoListingsViewTable_td">{listing.name}</td>
                                                             <td id="tickerColumn" className="cryptoListingsViewTable_td">{listing.ticker}</td>
@@ -120,39 +148,39 @@ class CryptoListPage extends Component {
                                                             <td id="marketCapColumn" className="cryptoListingsViewTable_td">{listing.marketCap}</td>
                                                             <td id="volume24hColumn" className="cryptoListingsViewTable_td">{listing.volume24h}</td>
                                                             <td id="circulatingSupplyColumn" className="cryptoListingsViewTable_td">{listing.circulatingSupply}</td>
-                                                            <td id="viewComments" className="cryptoListingsViewTable_td"><Link to={"/profile/"+ listing._id} className="cryptoProfileButton"><FormBtn id="cryptoProfileButton">Comments</FormBtn> </Link></td>
+                                                            <td id="viewComments" className="cryptoListingsViewTable_td"><Link to={"/profile/" + listing._id} className="cryptoProfileButton"><FormBtn id="cryptoProfileButton">Comments</FormBtn> </Link></td>
                                                         </tr>
-                                         
-                                                )
-                                            })}
-                                        </tbody>
-                                    </table>
+
+                                                    )
+                                                })}
+                                            </tbody>
+                                        </table>
                                     </div>
 
-                                ) : (<h3 className="noResultsMessage"> No Results to Display </h3>)} 
+                                ) : (<h3 className="noResultsMessage"> No Results to Display </h3>)}
 
 
                             </div>
-                            
-                            
-                            
-                            
-                            
-                            
+
+
+
+
+
+
                             :
-                                                      
-                            
+
+
                             ""}
 
-                                <br />
-                                    <br />
-                                
-                       
-                       
-                
+                        <br />
+                        <br />
 
 
-                              
+
+
+
+
+
 
                     </Col>
                 </Row>

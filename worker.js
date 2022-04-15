@@ -10,7 +10,7 @@ function run() {
         conn.createChannel(function (err, channel) {
             channel.consume('spam', function (msg) {
                 console.log(`Message received: ${msg.content}`);
-                if (counter > 15) {
+                if (counter > 1) {
                     checkSpam();
                     counter = 0;
                 }
@@ -29,7 +29,7 @@ function checkSpam() {
         const commentTextsToDelete = [];
         for (let comment of comments) {
             frequencies[comment.text] = frequencies[comment.text] ? frequencies[comment.text] + 1 : 1;
-            if (frequencies[comment.text] > 3) {
+            if (frequencies[comment.text] > 2) {
                 console.log(`Spam detected on commentId: ${comment._id}`);
                 Comment.findByIdAndRemove(comment._id, function(err){
                     console.log(`Failed deleting spam message with error: ${err}`);

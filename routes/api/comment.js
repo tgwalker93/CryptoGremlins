@@ -2,6 +2,7 @@ var path = require('path');
 var request = require("request");
 var express = require("express");
 var app = express.Router();
+const messaging = require('../../messaging/messaging');
 
 //Database Models 
 var Comment = require("../../db/models/comment.js");
@@ -67,12 +68,12 @@ app.post("/saveComment", function (req, res) {
                     }
                     else {
                         // Or send the document to the browser
+                        messaging.publishToQueue('spam', 'comment_created');
                         res.send(doc);
                     }
                 });
         }
     });
-
 });
 
 

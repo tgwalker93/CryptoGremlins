@@ -5,6 +5,7 @@ const session = require('express-session');
 const mongoose = require("mongoose");
 const MongoStore = require('connect-mongo')(session);
 const dbConnection = require('./db'); // loads our connection to the mongo database
+require ('newrelic');
 
 var dotenv = require('dotenv');
 

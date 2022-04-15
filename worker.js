@@ -24,12 +24,12 @@ function run() {
 
 function checkSpam() {
     console.log('Checking for spam messages.');
-    Comment.find({}).sort({ timestamp: -1 }).limit(30).exec(function (err, comments) {
+    Comment.find({}).sort({ timestamp: -1 }).limit(15).exec(function (err, comments) {
         const frequencies = {};
         const commentTextsToDelete = [];
         for (let comment of comments) {
             frequencies[comment.text] = frequencies[comment.text] ? frequencies[comment.text] + 1 : 1;
-            if (frequencies[comment.text] > 2) {
+            if (frequencies[comment.text] > 1) {
                 console.log(`Spam detected on commentId: ${comment._id}`);
                 Comment.findByIdAndRemove(comment._id, function(err){
                     console.log(`Failed deleting spam message with error: ${err}`);

@@ -17,7 +17,7 @@ import {render} from '@testing-library/react'
 //     document.getElementById('root') || document.createElement('div'));
 
 //     expect(page).toEqual(null);
-// });
+// }); 
 
 
 test('If Crypto Profile Page is rendered', () => {

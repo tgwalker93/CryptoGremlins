@@ -18,12 +18,12 @@ jobs:
     #   matrix:
     #     node-version: [12.x, 14.x, 16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-    strategy: 
-      matrix:
-        node-version: v16.14.0
+
     steps:
     - uses: actions/checkout@v1
     - name: Run Jest
       uses: stefanoeb/jest-action@1.0.3
     - name: Run the tests
+      with:
+        node-version: 16.x
       run: npm run test

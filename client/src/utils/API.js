@@ -7,7 +7,6 @@ export default {
         return axios.post("/api/comment/deleteComment/" + commentData._id);
     },
     saveComment: function(commentData) {
-        console.log("I'm in save comment");
         return axios.post("/api/comment/saveComment", commentData);
     },
     getComments: function(commentData) {

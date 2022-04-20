@@ -164,6 +164,7 @@ class CryptoListPage extends Component {
                                                     <th className="cryptoListingsViewTable_th" scope="col">Volume 24h</th>
                                                     <th className="cryptoListingsViewTable_th" scope="col">Circulating Supply</th>
                                                     <th className="cryptoListingsViewTable_th" scope="col"># Of Comments</th>
+                                                    <th className="cryptoListingsViewTable_th" scope="col">Average Rating (Out of 5)</th>
                                                     <th className="cryptoListingsViewTable_th" scope="col"></th>
                                                 </tr>
                                             </thead>
@@ -179,6 +180,7 @@ class CryptoListPage extends Component {
                                                             <td id="volume24hColumn" className="cryptoListingsViewTable_td">{listing.volume24h}</td>
                                                             <td id="circulatingSupplyColumn" className="cryptoListingsViewTable_td">{listing.circulatingSupply}</td>
                                                             <td id="numOfCommentsColumn" className="cryptoListingsViewTable_td">{listing.comments.length}</td>
+                                                            <td id="avgRatingColumn" className="cryptoListingsViewTable_td">{listing.averageRating}</td>
                                                             <td id="viewComments" className="cryptoListingsViewTable_td"><Link to={"/profile/" + listing._id} className="cryptoProfileButton"><FormBtn id="cryptoProfileButton">Comments</FormBtn> </Link></td>
                                                         </tr>
 

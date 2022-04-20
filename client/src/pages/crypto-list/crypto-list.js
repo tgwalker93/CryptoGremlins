@@ -171,16 +171,15 @@ class CryptoListPage extends Component {
                                             <tbody>
                                                 {this.state.cyrptoProjects.map(listing => {
                                                     return (
-
                                                         <tr className="cryptoListingsViewTable_tr" key={listing._id}>
                                                             <td id="nameColumn" className="cryptoListingsViewTable_td">{listing.name}</td>
                                                             <td id="tickerColumn" className="cryptoListingsViewTable_td">{listing.ticker}</td>
-                                                            <td id="priceColumn" className="cryptoListingsViewTable_td">{listing.price}</td>
-                                                            <td id="marketCapColumn" className="cryptoListingsViewTable_td">{listing.marketCap}</td>
-                                                            <td id="volume24hColumn" className="cryptoListingsViewTable_td">{listing.volume24h}</td>
-                                                            <td id="circulatingSupplyColumn" className="cryptoListingsViewTable_td">{listing.circulatingSupply}</td>
-                                                            <td id="numOfCommentsColumn" className="cryptoListingsViewTable_td">{listing.comments.length}</td>
-                                                            <td id="avgRatingColumn" className="cryptoListingsViewTable_td">{listing.averageRating}</td>
+                                                            <td id="priceColumn" className="cryptoListingsViewTable_td">{"$" + Number(parseFloat(listing.price).toFixed(2)).toLocaleString('en')}</td>
+                                                            <td id="marketCapColumn" className="cryptoListingsViewTable_td">{Number(parseFloat(listing.marketCap).toFixed(2)).toLocaleString('en')}</td>
+                                                            <td id="volume24hColumn" className="cryptoListingsViewTable_td">{Number(parseFloat(listing.volume24h).toFixed(2)).toLocaleString('en')}</td>
+                                                            <td id="circulatingSupplyColumn" className="cryptoListingsViewTable_td">{Number(parseFloat(listing.circulatingSupply).toFixed(2)).toLocaleString('en')}</td>
+                                                            <td id="numOfCommentsColumn" className="cryptoListingsViewTable_td">{Number(parseFloat(listing.comments.length).toFixed(2)).toLocaleString('en')}</td>
+                                                            <td id="avgRatingColumn" className="cryptoListingsViewTable_td">{parseFloat(listing.averageRating).toFixed(2)}</td>
                                                             <td id="viewComments" className="cryptoListingsViewTable_td"><Link to={"/profile/" + listing._id} className="cryptoProfileButton"><FormBtn id="cryptoProfileButton">Comments</FormBtn> </Link></td>
                                                         </tr>
 

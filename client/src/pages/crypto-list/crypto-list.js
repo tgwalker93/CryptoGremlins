@@ -12,6 +12,8 @@ class CryptoListPage extends Component {
             formErrors: { name: "" },
             cryptoProjectsReceivedFromDB: false,
             cyrptoProjects: null,
+            sortButtonText: "Sort by Number of Comments",
+            parseComments: true,
             trendings: []
         };
 
@@ -99,6 +101,34 @@ class CryptoListPage extends Component {
         this.getTrendingCoins();
     }
 
+    sortCryptoProjects = event => {
+        event.preventDefault();
+
+        if(this.state.parseComments) 
+        {
+            this.setState({
+                parseComments: false,
+                sortButtonText: "Sort by Market Cap"
+            });
+            this.state.cyrptoProjects.sort(function (a, b) {
+                return b.comments.length - a.comments.length;
+            });
+        }
+        else 
+        {
+            this.setState({
+                parseComments: true,
+                sortButtonText: "Sort by Number of Comments"
+            });
+            this.state.cyrptoProjects.sort(function (a, b) {
+                return parseFloat(b.marketCap) - parseFloat(a.marketCap);
+            });
+        }
+        
+        
+        
+    };
+
     render() {
         return (
             <Container id="containerViewCryptoProjects" fluid="true">
@@ -121,10 +151,9 @@ class CryptoListPage extends Component {
                                 Coin name: {item.coinTicker} | Number of recent comments: {item.numComments}
                             </h2>
                         ))}
-                                <hr />
-                                <h1 className="cryptoProjectsTitle">CryptoProjects</h1>
                                 {this.state.cyrptoProjects.length ? (
                                     <div>
+                                        <FormBtn onClick={this.sortCryptoProjects.bind(this)} id="sortCommentsButton">{this.state.sortButtonText}</FormBtn> 
                                         <table id="cry" className="table table-hover cryptolistingsView_table">
                                             <thead id="cryptoListingsViewTable_head" className="thead-dark">
                                                 <tr>
@@ -134,6 +163,7 @@ class CryptoListPage extends Component {
                                                     <th className="cryptoListingsViewTable_th" scope="col">Market Cap</th>
                                                     <th className="cryptoListingsViewTable_th" scope="col">Volume 24h</th>
                                                     <th className="cryptoListingsViewTable_th" scope="col">Circulating Supply</th>
+                                                    <th className="cryptoListingsViewTable_th" scope="col"># Of Comments</th>
                                                     <th className="cryptoListingsViewTable_th" scope="col"></th>
                                                 </tr>
                                             </thead>
@@ -148,6 +178,7 @@ class CryptoListPage extends Component {
                                                             <td id="marketCapColumn" className="cryptoListingsViewTable_td">{listing.marketCap}</td>
                                                             <td id="volume24hColumn" className="cryptoListingsViewTable_td">{listing.volume24h}</td>
                                                             <td id="circulatingSupplyColumn" className="cryptoListingsViewTable_td">{listing.circulatingSupply}</td>
+                                                            <td id="numOfCommentsColumn" className="cryptoListingsViewTable_td">{listing.comments.length}</td>
                                                             <td id="viewComments" className="cryptoListingsViewTable_td"><Link to={"/profile/" + listing._id} className="cryptoProfileButton"><FormBtn id="cryptoProfileButton">Comments</FormBtn> </Link></td>
                                                         </tr>
 

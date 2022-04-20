@@ -8,6 +8,10 @@ const findComments = require('../utils/findComments');
 
 const databaseName = 'test';
 
+import { TextEncoder, TextDecoder } from 'util'
+global.TextEncoder = TextEncoder
+global.TextDecoder = TextDecoder
+
 // make new file to hold the function run() --> run.js
 // analyzer.js should only connect to db and execute run()
 // import run.js into this test file and connect to test database with code below (beforeAll)

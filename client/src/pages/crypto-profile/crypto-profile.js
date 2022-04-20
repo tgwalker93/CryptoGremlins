@@ -5,6 +5,9 @@ import API from "../../utils/API";
 import "./crypto-profile.css";
 import {CommentContainer, CommentPanel } from "../../components/CommentContainer";
 import { Link, useParams, useLocation  } from "react-router-dom";
+import Rating from 'react-rating'
+import starIcon from '../../images/star-full.png';
+import noStarIcon from '../../images/star-empty.png';
 
 //const { id } = useParams();
 
@@ -16,7 +19,8 @@ class CryptoProfilePage extends Component {
             location: null,
             id: null,
             currentComment: "",
-            currentUserName: "Anonymous"
+            currentUserName: "Anonymous",
+            currentRating: 0
         };
 
     }
@@ -55,8 +59,12 @@ class CryptoProfilePage extends Component {
         API.getSpecificCryptoProjectAndComments(this.props.params.id)
             .then(response => {
                 if (!response.data.error) {
-                    console.log(response.data);
                     var listing = response.data.doc;
+                    listing.comments.sort(function(a,b){
+                        // Turn your strings into dates, and then subtract them
+                        // to get a value that is either negative, positive, or zero.
+                        return new Date(b.timestamp.replace(" at ", " ")) - new Date(a.timestamp.replace(" at ", " "));
+                      });
                     this.setState({ 
                         id: listing._id,
                         name: listing.name,
@@ -87,12 +95,22 @@ class CryptoProfilePage extends Component {
                 text: this.state.currentComment,
                 userWhoMadeComment: this.state.currentUserName,
                 cryptoProjectID: this.state.id,
-                ticker: this.state.ticker
+                ticker: this.state.ticker,
+                rating: this.state.currentRating
             }
             API.saveComment(commentObj)
-                .then(res => this.getSpecificCryptoProjectAndComments())
+                .then(res => {
+                    this.getSpecificCryptoProjectAndComments()
+                })
                 .catch(err => console.log(err));
         }
+    }
+
+    handleStarRatingChange = (rating) => {
+        this.setState({ 
+            currentRating: rating
+        })
+
     }
 
     render() {
@@ -107,12 +125,19 @@ class CryptoProfilePage extends Component {
                             </Container>
                         </div>   
                         <Link to={"/crypto-list"} className="backToListingsButton"><FormBtn id="backToListingsButton">Back to Crypto Listings Page?</FormBtn> </Link>
-                        <h3>Price: {this.state.price}</h3>
-                        <h3>Market Cap: {this.state.marketCap}</h3>
+                        <h3>Price: {"$" + Number(parseFloat(this.state.price).toFixed(2)).toLocaleString('en')}</h3>
+                        <h3>Market Cap: {Number(parseFloat(this.state.marketCap).toFixed(2)).toLocaleString('en')}</h3>
                         <h3>Ticker: {this.state.ticker}</h3>
                         <h3>timestamp: {this.state.timeStamp}</h3>
-                        <h3>volume24h: {this.state.volume24h}</h3>
-                        
+                        <h3>volume24h: {Number(parseFloat(this.state.volume24h).toFixed(2)).toLocaleString('en')}</h3>
+                    <Rating
+                        initialRating={this.state.currentRating}
+                        emptySymbol={<img src={noStarIcon} className="icon" />}
+                        fullSymbol={<img src={starIcon} className="icon" />}
+                        onChange={this.handleStarRatingChange}
+                        />
+
+                    <br />
                     <textarea 
                         placeholder='Comment'
                         id="currentComment"
@@ -138,7 +163,10 @@ class CryptoProfilePage extends Component {
                                 {this.state.comments.map(comment => {
                                     return (
                                         <div key={comment._id}>
-                                        
+                                            <Rating initialRating={comment.rating} 
+                                                    emptySymbol={<img src={noStarIcon} className="icon" />}
+                                                    fullSymbol={<img src={starIcon} className="icon" />}
+                                                    readonly />
                                             <CommentPanel key={comment._id} text={comment.userWhoMadeComment + ": " + comment.text} date={comment.timestamp}>
 
                                         </CommentPanel>

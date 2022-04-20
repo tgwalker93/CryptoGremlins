@@ -13,7 +13,10 @@ app.get("/getAllCryptoProjects", function(req, res) {
     resultObj = {
 
     }
-    Listing.find({}, function(err, docs) {
+    Listing.find({})
+        // ..and populate all of the bug comments associated with it
+        .populate("comments")
+        .exec(function (err, docs) {
         if (!err) { 
             console.log(docs);
             resultObj.docs = docs;

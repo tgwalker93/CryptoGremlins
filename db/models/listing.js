@@ -22,6 +22,9 @@ var ListingSchema = new Schema({
     circulatingSupply: {
         type: Number
     },
+    averageRating: {
+        type: Number
+    },
     timeStamp: {
         type: String,
         default: Date.now().toString()

@@ -12,6 +12,9 @@ var CommentSchema = new Schema({
     text: {
         type: String
     },
+    rating: {
+        type: Number
+    },
     userWhoMadeComment: {
         type: String
     },

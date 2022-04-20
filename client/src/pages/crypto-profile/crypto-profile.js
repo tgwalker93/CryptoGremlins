@@ -60,8 +60,11 @@ class CryptoProfilePage extends Component {
             .then(response => {
                 if (!response.data.error) {
                     var listing = response.data.doc;
-                    console.log("getspecificprojectandcomments");
-                    console.log(listing);
+                    listing.comments.sort(function(a,b){
+                        // Turn your strings into dates, and then subtract them
+                        // to get a value that is either negative, positive, or zero.
+                        return new Date(b.timestamp.replace(" at ", " ")) - new Date(a.timestamp.replace(" at ", " "));
+                      });
                     this.setState({ 
                         id: listing._id,
                         name: listing.name,
@@ -97,8 +100,6 @@ class CryptoProfilePage extends Component {
             }
             API.saveComment(commentObj)
                 .then(res => {
-                    console.log("i'm in save comment on the react ui")
-                    console.log(res)
                     this.getSpecificCryptoProjectAndComments()
                 })
                 .catch(err => console.log(err));
@@ -124,11 +125,11 @@ class CryptoProfilePage extends Component {
                             </Container>
                         </div>   
                         <Link to={"/crypto-list"} className="backToListingsButton"><FormBtn id="backToListingsButton">Back to Crypto Listings Page?</FormBtn> </Link>
-                        <h3>Price: {this.state.price}</h3>
-                        <h3>Market Cap: {this.state.marketCap}</h3>
+                        <h3>Price: {"$" + Number(parseFloat(this.state.price).toFixed(2)).toLocaleString('en')}</h3>
+                        <h3>Market Cap: {Number(parseFloat(this.state.marketCap).toFixed(2)).toLocaleString('en')}</h3>
                         <h3>Ticker: {this.state.ticker}</h3>
                         <h3>timestamp: {this.state.timeStamp}</h3>
-                        <h3>volume24h: {this.state.volume24h}</h3>
+                        <h3>volume24h: {Number(parseFloat(this.state.volume24h).toFixed(2)).toLocaleString('en')}</h3>
                     <Rating
                         initialRating={this.state.currentRating}
                         emptySymbol={<img src={noStarIcon} className="icon" />}

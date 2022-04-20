@@ -25,5 +25,7 @@ jobs:
         node-version: 16.x    
     - name: Run Jest
       uses: stefanoeb/jest-action@1.0.3
+      with:
+        node-version: 16.x          
     - name: Run the tests
       run: npm run test

@@ -179,7 +179,7 @@ class CryptoListPage extends Component {
                                                             <td id="volume24hColumn" className="cryptoListingsViewTable_td">{Number(parseFloat(listing.volume24h).toFixed(2)).toLocaleString('en')}</td>
                                                             <td id="circulatingSupplyColumn" className="cryptoListingsViewTable_td">{Number(parseFloat(listing.circulatingSupply).toFixed(2)).toLocaleString('en')}</td>
                                                             <td id="numOfCommentsColumn" className="cryptoListingsViewTable_td">{Number(parseFloat(listing.comments.length).toFixed(2)).toLocaleString('en')}</td>
-                                                            <td id="avgRatingColumn" className="cryptoListingsViewTable_td">{parseFloat(listing.averageRating).toFixed(2)}</td>
+                                                            <td id="avgRatingColumn" className="cryptoListingsViewTable_td">{listing.averageRating = listing.averageRating ? parseFloat(listing.averageRating).toFixed(2) : 0}</td>
                                                             <td id="viewComments" className="cryptoListingsViewTable_td"><Link to={"/profile/" + listing._id} className="cryptoProfileButton"><FormBtn id="cryptoProfileButton">Comments</FormBtn> </Link></td>
                                                         </tr>
 

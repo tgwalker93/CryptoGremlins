@@ -5,7 +5,7 @@ import API from "../../utils/API";
 import "./crypto-profile.css";
 import {CommentContainer, CommentPanel } from "../../components/CommentContainer";
 import { Link, useParams, useLocation  } from "react-router-dom";
-import Rating from 'react-rating'
+import Rating from 'react-rating';
 import starIcon from '../../images/star-full.png';
 import noStarIcon from '../../images/star-empty.png';
 

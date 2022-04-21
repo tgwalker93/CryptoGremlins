@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const request = require("request");
 const findComments = require('../utils/findComments');
 
-const databaseName = 'cryptogremlins';
+const databaseName = 'test';
 
 // make new file to hold the function run() --> run.js
 // analyzer.js should only connect to db and execute run()
@@ -24,7 +24,15 @@ jest.setTimeout(3000000);
 
 beforeAll(async () => {
   const url = `mongodb://127.0.0.1/${databaseName}`;
-  await mongoose.connect(url, { useNewUrlParser: true });
+
+    // Connect to the Mongo DB
+  if (process.env.MONGODB_URI) {
+    await mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true});
+  } else {
+    await mongoose.connect(url, { useNewUrlParser: true }) // local mongo url
+  }
+
+  //await mongoose.connect(url, { useNewUrlParser: true });
 })
 
 afterAll(async () => {

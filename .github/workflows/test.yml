@@ -13,20 +13,20 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    services:
-      mongo:
-        image: mongo
-        env:
-          MONGO_INITDB_ROOT_USERNAME: test
-          MONGO_INITDB_ROOT_PASSWORD: password
-          MONGO_INITDB_DATABASE: test
-        options: >-
-          --health-cmd mongo
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 27017:27017    
+    # services:
+    #   mongo:
+    #     image: mongo
+    #     env:
+    #       MONGO_INITDB_ROOT_USERNAME: test
+    #       MONGO_INITDB_ROOT_PASSWORD: password
+    #       MONGO_INITDB_DATABASE: test
+    #     options: >-
+    #       --health-cmd mongo
+    #       --health-interval 10s
+    #       --health-timeout 5s
+    #       --health-retries 5
+    #     ports:
+    #       - 27017:27017   
     # ubuntu-18.04
     # ubuntu-latest
 
@@ -36,6 +36,8 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
+    - name: Create mongoDB Docker container      
+      run: sudo docker run -d -p 27017:27017 mongo:latest    
     - uses: actions/checkout@v1 
     - name: Run Jest
       uses: stefanoeb/jest-action@1.0.3         

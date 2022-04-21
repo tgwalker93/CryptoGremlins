@@ -1,14 +1,14 @@
-global.TextEncoder = require("util").TextEncoder;
-global.TextDecoder = require("util").TextDecoder;
-require("regenerator-runtime/runtime");
-const analyze = require('../utils/run');
-var Comment = require("../../db/models/comment.js");
-var Trending = require("../../db/models/trending.js");
-const mongoose = require('mongoose');
-const request = require("request");
-const findComments = require('../utils/findComments');
+// global.TextEncoder = require("util").TextEncoder;
+// global.TextDecoder = require("util").TextDecoder;
+// require("regenerator-runtime/runtime");
+// const analyze = require('../utils/run');
+// var Comment = require("../../db/models/comment.js");
+// var Trending = require("../../db/models/trending.js");
+// const mongoose = require('mongoose');
+// const request = require("request");
+// const findComments = require('../utils/findComments');
 
-const databaseName = 'test';
+// const databaseName = 'test';
 
 // make new file to hold the function run() --> run.js
 // analyzer.js should only connect to db and execute run()
@@ -123,7 +123,7 @@ const databaseName = 'test';
 // });
 
 
-//Above test is not working, so this is just a dummy test
+//Above test is not working, so this is just a dummy test. The above test works on local, but not in Github Actions
 test('adds 1 + 2 to equal 3', () => {
     expect(1+2).toBe(3);
   });

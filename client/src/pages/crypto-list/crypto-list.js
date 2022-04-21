@@ -15,7 +15,8 @@ class CryptoListPage extends Component {
             sortButtonText: "Sort by Number of Comments",
             parseComments: true,
             trendings: [],
-            searchText: ""
+            searchText: "",
+            sortType: ""
         };
 
     }
@@ -101,29 +102,44 @@ class CryptoListPage extends Component {
         this.getTrendingCoins();
     }
 
-    sortCryptoProjects = event => {
-        event.preventDefault();
+    sortCryptoProjects(e) {
+        e.preventDefault();
 
-        if(this.state.parseComments) 
+        this.setState({ [e.target.id]: e.target.value }, () => 
         {
-            this.setState({
-                parseComments: false,
-                sortButtonText: "Sort by Market Cap"
-            });
-            this.state.cryptoProjects.sort(function (a, b) {
-                return b.comments.length - a.comments.length;
-            });
-        }
-        else 
-        {
-            this.setState({
-                parseComments: true,
-                sortButtonText: "Sort by Number of Comments"
-            });
-            this.state.cryptoProjects.sort(function (a, b) {
-                return parseFloat(b.marketCap) - parseFloat(a.marketCap);
-            });
-        }
+            console.log("i'm in sortcryptoProject");
+            console.log(this.state.sortType);
+            if(this.state.sortType) 
+            {
+                if(this.state.sortType == "Market Cap") 
+                {
+                    this.setState({
+                    });
+                    this.state.cryptoProjects.sort(function (a, b) {
+                        return parseFloat(b.marketCap) - parseFloat(a.marketCap);
+                    });
+                }
+    
+                if(this.state.sortType == "Number Of Comments") 
+                {
+                    this.setState({
+                    });
+                    this.state.cryptoProjects.sort(function (a, b) {
+                        return b.comments.length - a.comments.length;
+                    });
+                }
+
+                if(this.state.sortType == "Average Rating")
+                {
+                    this.setState({
+                    });
+                    this.state.cryptoProjects.sort(function (a, b) {
+                        return b.averageRating - a.averageRating;
+                    });
+                }
+            }
+        });
+
         
         
         
@@ -169,39 +185,6 @@ class CryptoListPage extends Component {
         
     };
 
-    testStuff() {
-        if(this.state.searchText) 
-        {
-            var searchObj = {
-                searchText: this.state.searchText,
-            }
-            var docs = this.state.cryptoprojects;
-            API.searchCryptoProjects(searchObj)
-            .then(response => {
-                if (!response.data.error) {
-                    if(response.data.docs.length > 0) 
-                    {
-                        this.setState({
-                            cryptoProjectsReceivedFromDB: true,
-                            cryptoProjects: response.data.docs
-                        })
-                    }
-                    else {
-                        this.setState({
-                            cryptoProjectsReceivedFromDB: false
-                        })
-                    }
-                } else {
-                    this.setState({ errorResponse: response.data.error })
-                }
-            }).catch(err => {
-                this.setState({
-                    cryptoProjectsReceivedFromDB: false
-                })
-            });
-        }
-    }
-
     render() {
         return (
             <Container id="containerViewCryptoProjects" fluid="true">
@@ -221,8 +204,15 @@ class CryptoListPage extends Component {
                                 ))}</div> : ""}
                         <Input value={this.state.searchText} id="searchText" onChange={this.handleChange.bind(this)} name="searchText"></Input>
                         <FormBtn onClick={this.search.bind(this)} id="searchButton">Search</FormBtn>
-                        <FormBtn onClick={this.getCryptoProjectsFromDB.bind(this)} id="searchButton">Show All Crypto Projects</FormBtn> <br />
-                        <FormBtn onClick={this.sortCryptoProjects.bind(this)} id="sortCommentsButton">{this.state.sortButtonText}</FormBtn> 
+                        <FormBtn onClick={this.getCryptoProjectsFromDB.bind(this)} id="searchButton">Show All Crypto Projects</FormBtn> <br /><br />
+                         <div id="sortBySection">
+                        <label htmlFor="sortType">Sort By: </label>
+                        <select onChange={this.sortCryptoProjects.bind(this)} value={this.state.sortType} id="sortType" name="sortType">
+                            <option className="dropdown-item" href="#" value="Market Cap">Market Cap</option>
+                            <option className="dropdown-item" href="#" value="Number Of Comments">Number Of Comments</option>
+                            <option className="dropdown-item" href="#" value="Average Rating">Average Rating</option>
+                            </select>
+                        </div>
                         {this.state.cryptoProjectsReceivedFromDB ?
 
                             <div>

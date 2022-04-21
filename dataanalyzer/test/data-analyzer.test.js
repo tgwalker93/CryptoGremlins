@@ -26,13 +26,13 @@ beforeAll(async () => {
   const url = `mongodb://127.0.0.1/${databaseName}`;
 
     // Connect to the Mongo DB
-  if (process.env.MONGODB_URI) {
-    await mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true});
-  } else {
-    await mongoose.connect(url, { useNewUrlParser: true }) // local mongo url
-  }
+  // if (process.env.MONGODB_URI) {
+  //   await mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true});
+  // } else {
+  //   await mongoose.connect(url, { useNewUrlParser: true }) // local mongo url
+  // }
 
-  //await mongoose.connect(url, { useNewUrlParser: true });
+  await mongoose.connect(url, { useNewUrlParser: true });
 })
 
 afterAll(async () => {

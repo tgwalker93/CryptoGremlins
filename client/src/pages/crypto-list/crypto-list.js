@@ -212,7 +212,7 @@ class CryptoListPage extends Component {
                                             <h3>These are the super hot trending coins!</h3>
                                             {this.state.trendings.map(item => (
                                                 <h3>
-                                                    Coin name: {item.coinTicker} | Number of recent comments: {item.numComments}
+                                                    Coin name: {item.coinTicker} | Number of recent reviews: {item.numComments}
                                                 </h3>
                                             ))}
                                     </div>

@@ -59,4 +59,33 @@ app.get("/getAllCommentsOfCryptoProject/:cryptoProjectID", function (req, res) {
 
 })
 
+//Search Crypto Projects!
+app.post("/searchCryptoProjects", function (req, res) {
+
+    var resultObj = {
+        
+    }
+    //Use the org id param to find the organization and its associated bugs
+    Listing.find({ "name": { "$regex": req.body.searchText, "$options": "i" } })
+        // ..and populate all of the bug comments associated with it
+        .populate("comments")
+        // now, execute our query
+        .exec(function (error, docs) {
+            // Log any errors
+            if (error) {
+                //Error 
+                console.log(error);
+                resultObj.error = true;
+                resultObj.errorObj = error;
+                res.json(resultObj);
+            }
+            // Otherwise, send the doc to the browser as a json object
+            else {
+                resultObj.docs = docs;
+                res.json(resultObj);
+            }
+        });
+
+})
+
 module.exports = app;

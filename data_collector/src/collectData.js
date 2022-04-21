@@ -26,7 +26,9 @@ async function get_data() {
 
             //await Listing.save();
 
-            await Listing.findOneAndUpdate({ticker:listingsAll[i].symbol},listing, {upsert: true});
+            var query = {'name': listingsAll[i].name};
+
+            await Listing.findOneAndUpdate({query},listing, {upsert: true});
         }
         console.log('finished writing listings to DB...');
     }).catch(error => {

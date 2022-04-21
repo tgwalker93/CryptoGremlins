@@ -13,7 +13,7 @@
 //      document.getElementById('root') || document.createElement('div'));
 //  })
 
- test('If Crypto Profile Page is rendered', async () => {
+ test('If Crypto Profile Page is rendered', () => {
   const page  = render(<CryptoListPage />);
   expect(page.baseElement.textContent).toEqual("View Crypto Projects");
 });

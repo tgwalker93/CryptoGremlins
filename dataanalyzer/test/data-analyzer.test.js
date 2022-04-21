@@ -20,7 +20,7 @@ const databaseName = 'test';
   // (3) try to save comment with non string text -- make sure this comment does not show up
       // gonna need to integrate findComments.js first
 
-jest.setTimeout(30000);
+jest.setTimeout(3000000);
 
 beforeAll(async () => {
   const url = `mongodb://127.0.0.1/${databaseName}`;

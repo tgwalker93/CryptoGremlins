@@ -189,30 +189,37 @@ class CryptoListPage extends Component {
             <Container id="containerViewCryptoProjects" fluid="true">
                 <Row id="mainRow">
                     <Col size="sm-12">
-                        <div className="jumbotron jumbotron-fluid">
+                        <div id="cryptoListJumboTron" className="jumbotron jumbotron-fluid">
                             <Container id="container" fluid="true">
                                 <h1 id="cryptoListTitle" className="display-1">View Crypto Projects</h1>
                             </Container>
                         </div>
-                        {this.state.trendings.length > 0 ? 
-                        <div id="trendingPanel" className="panel panel-default">
-                        <div className="panel-body">
-                                <h3>These are the super hot trending coins</h3>
-                                {this.state.trendings.map(item => (
-                                    <h3>
-                                        Coin name: {item.coinTicker} | Number of recent comments: {item.numComments}
-                                    </h3>
-                                ))}
-                         </div>
-                         </div> 
-                         : ""}
-                        <div className="row inputBox">
+                         <Row>
+                             <Col size="sm-8">
+                             <div id="searchSection" className="row inputBox">
                             <Col id="searchBarCol" size="sm-4">
                                 <Input placeholder="Search..." value={this.state.searchText} id="searchText" onChange={this.handleChange.bind(this)} name="searchText"></Input>
                             </Col>
                             <Col id="searchButtonCol" size="sm-3"><FormBtn onClick={this.search.bind(this)} id="searchButton"><span className="glyphicon glyphicon-search"></span></FormBtn></Col>
                             <Col id="showAllCryptoCol" size="sm-3"><FormBtn onClick={this.getCryptoProjectsFromDB.bind(this)} id="searchAllButton">Show All Crypto Projects</FormBtn></Col>
                         </div>
+
+                             </Col>
+                             <Col size="sm-4">
+                                {this.state.trendings.length > 0 ? 
+                                    <div id="trendingPanel" className="panel panel-default">
+                                    <div className="panel-body">
+                                            <h3>These are the super hot trending coins!</h3>
+                                            {this.state.trendings.map(item => (
+                                                <h3>
+                                                    Coin name: {item.coinTicker} | Number of recent comments: {item.numComments}
+                                                </h3>
+                                            ))}
+                                    </div>
+                                    </div> 
+                                    : ""}
+                             </Col>
+                         </Row>
                         
                          <br /><br />
                          <div id="sortBySection">

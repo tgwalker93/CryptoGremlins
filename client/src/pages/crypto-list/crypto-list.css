@@ -7,6 +7,11 @@
     font-size: 16px;
 }
 
+#searchSection {
+    margin-top: 4%;
+    margin-left: 20%;
+}
+
 #searchText {
     font-family:Arial, FontAwesome
 }
@@ -16,8 +21,13 @@
 }
 #trendingPanel {
     width: fit-content;
-    background-color: lightsteelblue;
-    position: center;
+    background-color: #f5f7f5;
+    margin-bottom:2px;
+    margin-left: auto;
+}
+
+#cryptoListJumboTron {
+    padding-bottom: 10px;
 }
 
 #searchText {

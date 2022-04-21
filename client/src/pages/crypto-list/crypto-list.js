@@ -13,7 +13,6 @@ class CryptoListPage extends Component {
             cryptoProjectsReceivedFromDB: false,
             cryptoProjects: null,
             sortButtonText: "Sort by Number of Comments",
-            parseComments: true,
             trendings: [],
             searchText: "",
             sortType: ""
@@ -192,19 +191,30 @@ class CryptoListPage extends Component {
                     <Col size="sm-12">
                         <div className="jumbotron jumbotron-fluid">
                             <Container id="container" fluid="true">
-                                <h2 className="display-4">View Crypto Projects</h2>
+                                <h1 id="cryptoListTitle" className="display-1">View Crypto Projects</h1>
                             </Container>
                         </div>
                         {this.state.trendings.length > 0 ? 
-                                <div><h3>These are the super hot trending coins</h3>
+                        <div id="trendingPanel" className="panel panel-default">
+                        <div className="panel-body">
+                                <h3>These are the super hot trending coins</h3>
                                 {this.state.trendings.map(item => (
-                                    <h2>
+                                    <h3>
                                         Coin name: {item.coinTicker} | Number of recent comments: {item.numComments}
-                                    </h2>
-                                ))}</div> : ""}
-                        <Input value={this.state.searchText} id="searchText" onChange={this.handleChange.bind(this)} name="searchText"></Input>
-                        <FormBtn onClick={this.search.bind(this)} id="searchButton">Search</FormBtn>
-                        <FormBtn onClick={this.getCryptoProjectsFromDB.bind(this)} id="searchButton">Show All Crypto Projects</FormBtn> <br /><br />
+                                    </h3>
+                                ))}
+                         </div>
+                         </div> 
+                         : ""}
+                        <div className="row inputBox">
+                            <Col id="searchBarCol" size="sm-4">
+                                <Input placeholder="Search..." value={this.state.searchText} id="searchText" onChange={this.handleChange.bind(this)} name="searchText"></Input>
+                            </Col>
+                            <Col id="searchButtonCol" size="sm-3"><FormBtn onClick={this.search.bind(this)} id="searchButton"><span className="glyphicon glyphicon-search"></span></FormBtn></Col>
+                            <Col id="showAllCryptoCol" size="sm-3"><FormBtn onClick={this.getCryptoProjectsFromDB.bind(this)} id="searchAllButton">Show All Crypto Projects</FormBtn></Col>
+                        </div>
+                        
+                         <br /><br />
                          <div id="sortBySection">
                         <label htmlFor="sortType">Sort By: </label>
                         <select onChange={this.sortCryptoProjects.bind(this)} value={this.state.sortType} id="sortType" name="sortType">
@@ -227,7 +237,7 @@ class CryptoListPage extends Component {
                                             <th className="cryptoListingsViewTable_th" scope="col">Market Cap</th>
                                             <th className="cryptoListingsViewTable_th" scope="col">Volume 24h</th>
                                             <th className="cryptoListingsViewTable_th" scope="col">Circulating Supply</th>
-                                            <th className="cryptoListingsViewTable_th" scope="col"># Of Comments</th>
+                                            <th className="cryptoListingsViewTable_th" scope="col"># Of Reviews</th>
                                             <th className="cryptoListingsViewTable_th" scope="col">Average Rating (Out of 5)</th>
                                             <th className="cryptoListingsViewTable_th" scope="col"></th>
                                         </tr>
@@ -244,7 +254,7 @@ class CryptoListPage extends Component {
                                                     <td id="circulatingSupplyColumn" className="cryptoListingsViewTable_td">{Number(parseFloat(listing.circulatingSupply).toFixed(2)).toLocaleString('en')}</td>
                                                     <td id="numOfCommentsColumn" className="cryptoListingsViewTable_td">{Number(parseFloat(listing.comments.length).toFixed(2)).toLocaleString('en')}</td>
                                                     <td id="avgRatingColumn" className="cryptoListingsViewTable_td">{listing.averageRating = listing.averageRating ? parseFloat(listing.averageRating).toFixed(2) : 0}</td>
-                                                    <td id="viewComments" className="cryptoListingsViewTable_td"><Link to={"/profile/" + listing._id} className="cryptoProfileButton"><FormBtn id="cryptoProfileButton">Comments</FormBtn> </Link></td>
+                                                    <td id="viewComments" className="cryptoListingsViewTable_td"><Link to={"/profile/" + listing._id} className="cryptoProfileButton"><FormBtn id="cryptoProfileButton">Reviews</FormBtn> </Link></td>
                                                 </tr>
 
                                             )

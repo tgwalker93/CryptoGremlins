@@ -89,6 +89,9 @@ class CryptoProfilePage extends Component {
      } 
 
      addComment() {
+
+        console.log("i'm in add comment");
+        console.log(this.state.currentComment);
          
         if (this.state.currentComment) {
             var commentObj = {
@@ -119,57 +122,75 @@ class CryptoProfilePage extends Component {
                 <Row id="mainRow">
                     {this.state.id ? (<Col size="sm-12">
 
-                        <div className="jumbotron jumbotron-fluid">
+                        <div id="cryptoProfileJumboTron" className="jumbotron jumbotron-fluid">
                             <Container id="container" fluid="true">.
-                            <h2 className="display-4">{this.state.name}</h2>
+                            <h1 id="projectTitle" className="display-1">{this.state.name}</h1>
                             </Container>
+                            <Link to={"/crypto-list"} id="backToListingsButton" className="backToListingsButton"><FormBtn id="backToListingsButton">Back to Crypto Listings Page?</FormBtn> </Link>
+                            <br />
+                        <br />
                         </div>   
-                        <Link to={"/crypto-list"} className="backToListingsButton"><FormBtn id="backToListingsButton">Back to Crypto Listings Page?</FormBtn> </Link>
+                        <div id="cryptoInformationPanel" className="panel panel-default">
+                        <div className="panel-body">
                         <h3>Price: {"$" + Number(parseFloat(this.state.price).toFixed(2)).toLocaleString('en')}</h3>
                         <h3>Market Cap: {Number(parseFloat(this.state.marketCap).toFixed(2)).toLocaleString('en')}</h3>
                         <h3>Ticker: {this.state.ticker}</h3>
                         <h3>timestamp: {this.state.timeStamp}</h3>
                         <h3>volume24h: {Number(parseFloat(this.state.volume24h).toFixed(2)).toLocaleString('en')}</h3>
-                    <Rating
-                        initialRating={this.state.currentRating}
-                        emptySymbol={<img src={noStarIcon} className="icon" />}
-                        fullSymbol={<img src={starIcon} className="icon" />}
-                        onChange={this.handleStarRatingChange}
-                        />
+                        </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div id="addReviewPanel" className="card">
+                        <div className="card-body">
+                            <div>
+                            <Rating
+                                initialRating={this.state.currentRating}
+                                emptySymbol={<img src={noStarIcon} className="icon" />}
+                                fullSymbol={<img src={starIcon} className="icon" />}
+                                onChange={this.handleStarRatingChange}
+                                />
 
-                    <br />
-                    <textarea 
-                        placeholder='Comment'
-                        id="currentComment"
-                        cols="80" rows="10"
-                        onBlur={this.formatInput.bind(this)}
-                        value={this.state.currentComment}
-                        onChange={this.handleChange.bind(this)}
-                        name="currentComment"
-                    ></textarea>
-                    <Input placeholder='Username (default: anonymous)'
-                        id="currentUserName"
-                        onBlur={this.formatInput.bind(this)}
-                        value={this.state.currentUserName}
-                        onChange={this.handleChange.bind(this)}
-                        name="currentUserName"
-                    />
+                            <br />
+                            <br />
+                            <textarea 
+                                placeholder='Leave a review...'
+                                id="currentComment"
+                                cols="80" rows="10"
+                                onBlur={this.formatInput.bind(this)}
+                                value={this.state.currentComment}
+                                onChange={this.handleChange.bind(this)}
+                                name="currentComment"
+                            ></textarea>
+                            <Input placeholder='Username (default: anonymous)'
+                                id="currentUserName"
+                                onBlur={this.formatInput.bind(this)}
+                                value={this.state.currentUserName}
+                                onChange={this.handleChange.bind(this)}
+                                name="currentUserName"
+                            />
 
-                    <FormBtn className='btn btn-success save' onClick={() => this.addComment()}>Save Comment</FormBtn>
-
+                            <FormBtn className='btn btn-success save' onClick={() => this.addComment()}>Save Review</FormBtn>
+                            </div>
+                        </div>
+                        </div>
+                    
+                    <h2> Reviews</h2>
+                    <hr />
                     {this.state.comments.length ? (
                         <CommentContainer>
                             <div className="CommentContainer">
                                 {this.state.comments.map(comment => {
                                     return (
                                         <div key={comment._id}>
+                                            <CommentPanel key={comment._id} name={comment.userWhoMadeComment} text={comment.text} date={comment.timestamp}>
                                             <Rating initialRating={comment.rating} 
                                                     emptySymbol={<img src={noStarIcon} className="icon" />}
                                                     fullSymbol={<img src={starIcon} className="icon" />}
                                                     readonly />
-                                            <CommentPanel key={comment._id} text={comment.userWhoMadeComment + ": " + comment.text} date={comment.timestamp}>
-
-                                        </CommentPanel>
+                                                    <br />
+                                                    <br />
+                                            </CommentPanel>
                                         </div>
                                     );
                                 })}

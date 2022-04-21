@@ -150,7 +150,7 @@ class LandingPage extends Component {
         return (
             
             <Container id="container" fluid="true">
-                <h1>These are the super hot trending coins</h1>
+                <h1>These are the super hot trending coins!</h1>
                     {this.state.trendings.map(item => (
                         <h2>
                             Coin name: {item.coinTicker} | Number of recent comments: {item.numComments}

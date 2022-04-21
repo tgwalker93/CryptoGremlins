@@ -53,8 +53,13 @@ jobs:
     #     sudo apt purge mongodb* 
     #     sudo apt-get install -y mongodb-org
   #      sudo apt-get install -y mongodb-org=3.6.14 mongodb-org-server=3.6.14 mongodb-org-shell=3.6.14 mongodb-org-mongos=3.6.14 mongodb-org-tools=3.6.14
-    - name: Start MongoDB
-      run: sudo systemctl start mongod  
+    - name: Start MongoDB v${{ matrix.mongodb-version }}
+      uses: supercharge/mongodb-github-action@1.2.0
+      with:
+        mongodb-version: ${{ matrix.mongodb-version }}
+        mongodb-replica-set: rs-test
+    # - name: Start MongoDB
+    #   run: sudo systemctl start mongod  
     - uses: actions/checkout@v1 
     - name: Run Jest
       uses: stefanoeb/jest-action@1.0.3         

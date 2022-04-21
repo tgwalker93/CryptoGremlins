@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const request = require("request");
 const findComments = require('../utils/findComments');
 
-const databaseName = 'test';
+const databaseName = 'cryptogremlins';
 
 // make new file to hold the function run() --> run.js
 // analyzer.js should only connect to db and execute run()

@@ -23,8 +23,12 @@ async function get_data() {
                 circulatingSupply: listingsAll[i].circulating_supply,
                 timeStamp: dateTime.toDateString().concat(', @ ', dateTime.toLocaleTimeString('en-US')) 
             }
-            let dbListing = new Listing(listing);
-            await dbListing.save();
+
+            //await Listing.save();
+
+            var query = {'name': listingsAll[i].name};
+
+            await Listing.findOneAndUpdate({query},listing, {upsert: true});
         }
         console.log('finished writing listings to DB...');
     }).catch(error => {

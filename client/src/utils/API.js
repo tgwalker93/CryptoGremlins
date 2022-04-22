@@ -7,7 +7,6 @@ export default {
         return axios.post("/api/comment/deleteComment/" + commentData._id);
     },
     saveComment: function(commentData) {
-        console.log("I'm in save comment");
         return axios.post("/api/comment/saveComment", commentData);
     },
     getComments: function(commentData) {
@@ -21,6 +20,19 @@ export default {
     },
     getSpecificCryptoProjectAndComments: function(cryptoProjectID) {
         return axios.get("/api/listing/getAllCommentsOfCryptoProject/" + cryptoProjectID);
+    },
+    searchCryptoProjects: function(searchObj) {
+    return axios.post("/api/listing/searchCryptoProjects", searchObj);
     }
-   
+
+    // searchCryptoProjects: function(searchObj) {
+    //     console.log("i'm in util")
+    //     console.log(searchObj);
+    //     return axios.get("/api/listing/searchCryptoProjects/" + searchObj.searchText);
+    //     // return new Promise((resolve, reject) => {
+    //     //     axios
+    //     //       .get("/api/listing/searchCryptoProjects/" + searchObj.searchText)
+    //     //       .then(res => resolve(res.data), err => reject(err));
+    //     //   });
+    // }
 };

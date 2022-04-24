@@ -45,8 +45,9 @@ afterAll(async () => {
   await mongoose.connection.close();
 })
 
-const mockExit = jest.spyOn(process, 'exit').mockImplementation(() => {});
+jest.setTimeout(3000000);
 
+const mockExit = jest.spyOn(process, 'exit').mockImplementation(() => {});
 describe('Integration test for writing and analyzing comment data', () => {
   it('Should save comment to database', async () => {
     const commentObj = {
@@ -65,6 +66,7 @@ describe('Integration test for writing and analyzing comment data', () => {
   
   })
 
+  jest.setTimeout(3000000);
   it('Data analyzer should handle comments with improper format', async () => {
     const commentObj1 = {
       title: 'title 2',
@@ -90,6 +92,7 @@ describe('Integration test for writing and analyzing comment data', () => {
     expect(query).toHaveLength(1);
   })
 
+  jest.setTimeout(3000000);
   it('Data analyzer is correctly identifying trending coins', async () => {
     const commentObj3 = {
       title: 'title 4',

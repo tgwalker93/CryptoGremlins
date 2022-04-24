@@ -7,6 +7,8 @@ var Trending = require("../../db/models/trending.js");
 const mongoose = require('mongoose');
 const request = require("request");
 const findComments = require('../utils/findComments');
+var MockMongoose = require('mock-mongoose').MockMongoose;
+var mockMongoose = new MockMongoose(mongoose);
 
 const databaseName = 'test';
 
@@ -23,8 +25,15 @@ const databaseName = 'test';
 // jest.setTimeout(3000000);
 
 beforeAll(async () => {
+  // const url = `mongodb://127.0.0.1/${databaseName}`;
+  // await mongoose.connect(url, { useNewUrlParser: true });
   const url = `mongodb://127.0.0.1/${databaseName}`;
-  await mongoose.connect(url, { useNewUrlParser: true });
+  mockMongoose.prepareStorage().then(function() {
+		// mongoose.connect(url, function(err) {
+		// 	//done(err);
+		// });
+    mongoose.connect(url, { useNewUrlParser: true });
+	});
 })
 
 afterAll(async () => {

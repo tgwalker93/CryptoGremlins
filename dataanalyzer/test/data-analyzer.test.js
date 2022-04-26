@@ -1,9 +1,6 @@
-/**
- * @jest-environment jsdom
- */
- import { TextEncoder, TextDecoder } from 'util';
- global.TextEncoder = TextEncoder;
- global.TextDecoder = TextDecoder;
+import { TextEncoder, TextDecoder } from 'util';
+global.TextEncoder = TextEncoder;
+global.TextDecoder = TextDecoder;
 require("regenerator-runtime/runtime");
 const analyze = require('../utils/run');
 var Comment = require("../../db/models/comment.js");
@@ -24,7 +21,7 @@ const databaseName = 'test';
   // (3) try to save comment with non string text -- make sure this comment does not show up
       // gonna need to integrate findComments.js first
 
-// jest.setTimeout(3000000);
+jest.setTimeout(3000000);
 
 beforeAll(async () => {
   const url = `mongodb://127.0.0.1/${databaseName}`;

@@ -31,12 +31,12 @@ beforeAll(async () => {
   await mongoose.connect(uri, { useNewUrlParser: true });
 })
 
-afterAll(done => {
-  Comment.deleteMany({});
-  Trending.deleteMany({});
+afterAll(async(done) => {
+  await Comment.deleteMany({});
+  await Trending.deleteMany({});
   // Closes the Mongoose connection
   //await mongoose.connection.close();
-  mongoose.connection.close();
+  await mongoose.connection.close();
   done();
 })
 

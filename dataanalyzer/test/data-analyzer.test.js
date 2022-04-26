@@ -1,6 +1,5 @@
-// import { TextEncoder, TextDecoder } from 'util';
-// global.TextEncoder = TextEncoder;
-// global.TextDecoder = TextDecoder;
+// global.TextEncoder = require("util").TextEncoder;
+// global.TextDecoder = require("util").TextDecoder;
 require("regenerator-runtime/runtime");
 const analyze = require('../utils/run');
 var Comment = require("../../db/models/comment.js");

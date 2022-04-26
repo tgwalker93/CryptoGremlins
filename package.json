@@ -9,7 +9,7 @@
     "start": "concurrently \"nodemon server.js\" \"npm run client\"",
     "build": "node scripts/build.js",
     "seed": "node scripts/seedDB.js",
-    "test": "jest"
+    "test": "jest --testEnvironment=node"
   },
   "keywords": [],
   "author": "",

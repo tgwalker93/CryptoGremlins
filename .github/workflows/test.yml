@@ -5,7 +5,7 @@ name: Tests
 
 on:
   push:
-    branches: [ main ]
+    branches: [ integration-test ]
   pull_request:
     branches: [ main ]
 

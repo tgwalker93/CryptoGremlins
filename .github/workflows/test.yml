@@ -65,6 +65,8 @@ jobs:
     #   run: sudo systemctl start mongod 
     - name: Git checkout
       uses: actions/checkout@v2
+		- name: Test in Node.js
+			uses: actions/setup-node@v2
     - name: Start MongoDB
       uses: supercharge/mongodb-github-action@1.7.0
       with:

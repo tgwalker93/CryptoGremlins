@@ -9,7 +9,7 @@
     "start": "concurrently \"nodemon server.js\" \"npm run client\"",
     "build": "node scripts/build.js",
     "seed": "node scripts/seedDB.js",
-    "test": "jest --testEnvironment=node"
+    "test": "jest --testEnvironment=node --runInBand --detectOpenHandles --forceExit"
   },
   "keywords": [],
   "author": "",

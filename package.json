@@ -59,8 +59,5 @@
     "concurrently": "^3.6.1",
     "jest": "^27.5.1",
     "nodemon": "^1.11.0"
-  },
-  "jest": {
-    "testEnvironment": "<rootDir>/test_env/custom-test-env.js"
   }
 }

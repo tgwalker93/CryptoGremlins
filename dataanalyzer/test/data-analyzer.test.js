@@ -31,12 +31,13 @@ beforeAll(async () => {
   await mongoose.connect(uri, { useNewUrlParser: true });
 })
 
-afterAll(async () => {
+afterAll(done => {
   await Comment.deleteMany({});
   await Trending.deleteMany({});
   // Closes the Mongoose connection
   //await mongoose.connection.close();
   await mongoose.connection.close();
+  done();
 })
 
 const mockExit = jest.spyOn(process, 'exit').mockImplementation(() => {});

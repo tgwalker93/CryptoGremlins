@@ -40,6 +40,7 @@ afterAll(async(done) => {
   done();
 })
 
+
 const mockExit = jest.spyOn(process, 'exit').mockImplementation(() => {});
 
 describe('Integration test for writing and analyzing comment data', () => {

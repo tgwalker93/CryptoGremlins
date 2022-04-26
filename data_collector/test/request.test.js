@@ -1,4 +1,4 @@
-require("regenerator-runtime/runtime");
+// require("regenerator-runtime/runtime");
 const request = require('../src/services/request');
 const axios = require('axios');
 

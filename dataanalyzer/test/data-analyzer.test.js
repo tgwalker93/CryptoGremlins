@@ -32,11 +32,11 @@ beforeAll(async () => {
 })
 
 afterAll(done => {
-  await Comment.deleteMany({});
-  await Trending.deleteMany({});
+  Comment.deleteMany({});
+  Trending.deleteMany({});
   // Closes the Mongoose connection
   //await mongoose.connection.close();
-  await mongoose.connection.close();
+  mongoose.connection.close();
   done();
 })
 

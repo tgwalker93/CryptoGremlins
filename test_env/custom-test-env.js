@@ -9,5 +9,9 @@ module.exports = class CustomTestEnvironment extends NodeEnvironment {
       const { TextEncoder } = require('util');
       this.global.TextEncoder = TextEncoder;
     }
+    if (typeof this.global.TextDecoder === 'undefined') {
+      const { TextDecoder } = require('util');
+      this.global.TextDecoder = TextDecoder;
+    }
   }
 }

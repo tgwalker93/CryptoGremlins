@@ -63,12 +63,18 @@ jobs:
     #     mongodb-replica-set: rs-test
     # - name: Start MongoDB
     #   run: sudo systemctl start mongod 
+    - name: Git checkout
+      uses: actions/checkout@v1 
     - name: Start MongoDB
       uses: supercharge/mongodb-github-action@1.7.0
       with:
         mongodb-version: "^4.4.1"
-    - uses: actions/checkout@v1 
+
+    - run: npm install
+    
     - name: Run Jest
-      uses: stefanoeb/jest-action@1.0.3         
+      uses: stefanoeb/jest-action@1.0.3 
+      env:
+        CI: true        
     - name: Run the tests
       run: npm run test

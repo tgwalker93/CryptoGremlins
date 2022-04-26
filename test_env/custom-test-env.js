@@ -1,4 +1,5 @@
 const NodeEnvironment = require('jest-environment-node');
+require("regenerator-runtime/runtime");
 
 // A custom environment to set the TextEncoder that is required by mongodb.
 module.exports = class CustomTestEnvironment extends NodeEnvironment {

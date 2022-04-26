@@ -4,77 +4,77 @@
 name: Tests
 
 on:
-	push:
-		branches: [ integration-test ]
-	pull_request:
-		branches: [ main ]
+  push:
+    branches: [ integration-test ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-	build:
+  build:
 
-		runs-on: ubuntu-latest
-		# strategy:
-		#   matrix:
-		#     mongodb-version: [3.6, 4.0, 4.2]    
-		# services:
-		#   mongo:
-		#     image: mongo
-		#     env:
-		#       MONGO_INITDB_ROOT_USERNAME: test
-		#       MONGO_INITDB_ROOT_PASSWORD: password
-		#       MONGO_INITDB_DATABASE: test
-		#     options: >-
-		#       --health-cmd mongo
-		#       --health-interval 10s
-		#       --health-timeout 5s
-		#       --health-retries 5
-		#     ports:
-		#       - 27017:27017   
-		# ubuntu-18.04
-		# ubuntu-latest
+    runs-on: ubuntu-latest
+    # strategy:
+    #   matrix:
+    #     mongodb-version: [3.6, 4.0, 4.2]    
+    # services:
+    #   mongo:
+    #     image: mongo
+    #     env:
+    #       MONGO_INITDB_ROOT_USERNAME: test
+    #       MONGO_INITDB_ROOT_PASSWORD: password
+    #       MONGO_INITDB_DATABASE: test
+    #     options: >-
+    #       --health-cmd mongo
+    #       --health-interval 10s
+    #       --health-timeout 5s
+    #       --health-retries 5
+    #     ports:
+    #       - 27017:27017   
+    # ubuntu-18.04
+    # ubuntu-latest
 
-		# strategy:
-		#   matrix:
-		#     node-version: [12.x, 14.x, 16.x]
-				# See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    # strategy:
+    #   matrix:
+    #     node-version: [12.x, 14.x, 16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-		steps:
-		# - uses: actions/checkout@v1
-		# - name: Use Node.js ${{ matrix.node-version }}
-		#   uses: actions/setup-node@v1
-		#   with:
-		#     node-version: ${{ matrix.node-version }}
-		# - name: Install dependencies
-		#   run: npm install
-		# - name: Install MongoDB
-		#   run: |
-		#     wget -qO - https://www.mongodb.org/static/pgp/server-3.6.asc | sudo apt-key add -
-		#     echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.6.list
-		#     sudo apt-get update
-		#     sudo apt-get purge mongodb-org*
-		#     sudo apt purge mongod* 
-		#     sudo apt purge mongodb* 
-		#     sudo apt-get install -y mongodb-org
-	#      sudo apt-get install -y mongodb-org=3.6.14 mongodb-org-server=3.6.14 mongodb-org-shell=3.6.14 mongodb-org-mongos=3.6.14 mongodb-org-tools=3.6.14
-		# - name: Start MongoDB v${{ matrix.mongodb-version }}
-		#   uses: supercharge/mongodb-github-action@1.2.0
-		#   with:
-		#     mongodb-version: ${{ matrix.mongodb-version }}
-		#     mongodb-replica-set: rs-test
-		# - name: Start MongoDB
-		#   run: sudo systemctl start mongod 
-		- name: Git checkout
-			uses: actions/checkout@v2
-		- name: Start MongoDB
-			uses: supercharge/mongodb-github-action@1.7.0
-			with:
-				mongodb-version: "^4.4.1"
+    steps:
+    # - uses: actions/checkout@v1
+    # - name: Use Node.js ${{ matrix.node-version }}
+    #   uses: actions/setup-node@v1
+    #   with:
+    #     node-version: ${{ matrix.node-version }}
+    # - name: Install dependencies
+    #   run: npm install
+    # - name: Install MongoDB
+    #   run: |
+    #     wget -qO - https://www.mongodb.org/static/pgp/server-3.6.asc | sudo apt-key add -
+    #     echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.6.list
+    #     sudo apt-get update
+    #     sudo apt-get purge mongodb-org*
+    #     sudo apt purge mongod* 
+    #     sudo apt purge mongodb* 
+    #     sudo apt-get install -y mongodb-org
+  #      sudo apt-get install -y mongodb-org=3.6.14 mongodb-org-server=3.6.14 mongodb-org-shell=3.6.14 mongodb-org-mongos=3.6.14 mongodb-org-tools=3.6.14
+    # - name: Start MongoDB v${{ matrix.mongodb-version }}
+    #   uses: supercharge/mongodb-github-action@1.2.0
+    #   with:
+    #     mongodb-version: ${{ matrix.mongodb-version }}
+    #     mongodb-replica-set: rs-test
+    # - name: Start MongoDB
+    #   run: sudo systemctl start mongod 
+    - name: Git checkout
+      uses: actions/checkout@v2
+    - name: Start MongoDB
+      uses: supercharge/mongodb-github-action@1.7.0
+      with:
+        mongodb-version: "^4.4.1"
 
-		- run: npm install
-		
-		- name: Run Jest
-			uses: stefanoeb/jest-action@1.0.3 
-			env:
-				CI: true        
-		- name: Run the tests
-			run: npm run test
+    - run: npm install
+    
+    - name: Run Jest
+      uses: stefanoeb/jest-action@1.0.3 
+      env:
+        CI: true        
+    - name: Run the tests
+      run: npm run test

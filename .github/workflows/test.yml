@@ -67,6 +67,8 @@ jobs:
       uses: supercharge/mongodb-github-action@1.7.0
       with:
         mongodb-version: "^4.4.1"
-    - uses: actions/checkout@v1        
+    - uses: actions/checkout@v1 
+    - name: Run Jest
+      uses: stefanoeb/jest-action@1.0.3         
     - name: Run the tests
       run: npm run test

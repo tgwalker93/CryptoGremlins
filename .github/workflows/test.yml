@@ -71,10 +71,6 @@ jobs:
         mongodb-version: "^4.4.1"
 
     - run: npm install
-    
-    - name: Run Jest
-      uses: stefanoeb/jest-action@1.0.3 
-      env:
-        CI: true        
+		        
     - name: Run the tests
       run: npm run test

@@ -1,5 +1,3 @@
-// global.TextEncoder = require("util").TextEncoder;
-// global.TextDecoder = require("util").TextDecoder;
 require("regenerator-runtime/runtime");
 const analyze = require('../utils/run');
 var Comment = require("../../db/models/comment.js");
@@ -9,20 +7,6 @@ const request = require("request");
 const findComments = require('../utils/findComments');
 import { MongoMemoryServer } from 'mongodb-memory-server';
 
-const databaseName = 'test';
-// const mongod = new MongoMemoryServer();
-
-// make new file to hold the function run() --> run.js
-// analyzer.js should only connect to db and execute run()
-// import run.js into this test file and connect to test database with code below (beforeAll)
-// make a describe() wrapper for the below test
-// add following tests:
-  // (1) test that we can actually save comment to db
-  // (2) test that comment saved actually shows up, search by text
-  // (3) try to save comment with non string text -- make sure this comment does not show up
-      // gonna need to integrate findComments.js first
-
-// jest.setTimeout(3000000);
 
 beforeAll(async () => {
   // const url = `mongodb://127.0.0.1/${databaseName}`;
@@ -35,9 +19,7 @@ afterAll(async () => {
   await Comment.deleteMany({});
   await Trending.deleteMany({});
   // Closes the Mongoose connection
-  //await mongoose.connection.close();
   await mongoose.connection.close();
-  // done();
 })
 
 

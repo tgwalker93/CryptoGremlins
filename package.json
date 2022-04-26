@@ -26,6 +26,7 @@
     "html-webpack-plugin": "^5.5.0",
     "mongod": "^2.0.0",
     "mongodb": "^4.4.1",
+    "mongodb-memory-server": "^8.5.1",
     "mongoose": "^6.2.9",
     "newrelic": "^8.9.1",
     "node": "^17.7.2",

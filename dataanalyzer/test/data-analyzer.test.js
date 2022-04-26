@@ -8,8 +8,10 @@ var Trending = require("../../db/models/trending.js");
 const mongoose = require('mongoose');
 const request = require("request");
 const findComments = require('../utils/findComments');
+import { MongoMemoryServer } from 'mongodb-memory-server';
 
 const databaseName = 'test';
+// const mongod = new MongoMemoryServer();
 
 // make new file to hold the function run() --> run.js
 // analyzer.js should only connect to db and execute run()
@@ -24,8 +26,10 @@ const databaseName = 'test';
 // jest.setTimeout(3000000);
 
 beforeAll(async () => {
-  const url = `mongodb://127.0.0.1/${databaseName}`;
-  await mongoose.connect(url, { useNewUrlParser: true });
+  // const url = `mongodb://127.0.0.1/${databaseName}`;
+  const mongo = await MongoMemoryServer.create();
+  const uri = mongo.getUri();
+  await mongoose.connect(uri, { useNewUrlParser: true });
 })
 
 afterAll(async () => {

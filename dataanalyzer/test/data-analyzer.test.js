@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 global.TextEncoder = require("util").TextEncoder;
 global.TextDecoder = require("util").TextDecoder;
+=======
+>>>>>>> 20e2c7288508bcd4ee43d0387e668ed93eaaf854
 require("regenerator-runtime/runtime");
 const analyze = require('../utils/run');
 var Comment = require("../../db/models/comment.js");
@@ -7,6 +10,7 @@ var Trending = require("../../db/models/trending.js");
 const mongoose = require('mongoose');
 const request = require("request");
 const findComments = require('../utils/findComments');
+<<<<<<< HEAD
 var MockMongoose = require('mock-mongoose').MockMongoose;
 var mockMongoose = new MockMongoose(mongoose);
 
@@ -35,19 +39,29 @@ beforeAll(async () => {
 		// });
     mongoose.connect(url, { useNewUrlParser: true });
 	});
+=======
+import { MongoMemoryServer } from 'mongodb-memory-server';
+
+
+beforeAll(async () => {
+  // const url = `mongodb://127.0.0.1/${databaseName}`;
+  const mongo = await MongoMemoryServer.create();
+  const uri = mongo.getUri();
+  await mongoose.connect(uri, { useNewUrlParser: true });
+>>>>>>> 20e2c7288508bcd4ee43d0387e668ed93eaaf854
 })
 
 afterAll(async () => {
   // await Comment.deleteMany({});
   // await Trending.deleteMany({});
   // Closes the Mongoose connection
-  //await mongoose.connection.close();
-  //await mongoose.connection.close();
+
+  await mongoose.connection.close();
 })
 
-jest.setTimeout(3000000);
 
 const mockExit = jest.spyOn(process, 'exit').mockImplementation(() => {});
+
 describe('Integration test for writing and analyzing comment data', () => {
   it('Should save comment to database', async () => {
     const commentObj = {

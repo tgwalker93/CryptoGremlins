@@ -1,7 +1,7 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 
-global.TextEncoder = require("util").TextEncoder;
-global.TextDecoder = require("util").TextDecoder;
+//global.TextEncoder = require("util").TextEncoder;
+//global.TextDecoder = require("util").TextDecoder;
 
 require("regenerator-runtime/runtime");
 const analyze = require('../utils/run');
@@ -27,14 +27,6 @@ const databaseName = 'test';
 
 //We need to increase set timeout or else we'll get "Exceeded timeout of 5000 ms for a hook." error in github actions
 jest.setTimeout(3000000);
-
-beforeAll(async () => {
-  // const url = `mongodb://127.0.0.1/${databaseName}`;
-  const mongo = await MongoMemoryServer.create();
-  const uri = mongo.getUri();
-  await mongoose.connect(uri, { useNewUrlParser: true });
-})
-
 
 beforeAll(async () => {
   // const url = `mongodb://127.0.0.1/${databaseName}`;

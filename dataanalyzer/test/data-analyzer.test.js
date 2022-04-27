@@ -1,8 +1,8 @@
-<<<<<<< HEAD
+import { MongoMemoryServer } from 'mongodb-memory-server';
+
 global.TextEncoder = require("util").TextEncoder;
 global.TextDecoder = require("util").TextDecoder;
-=======
->>>>>>> 20e2c7288508bcd4ee43d0387e668ed93eaaf854
+
 require("regenerator-runtime/runtime");
 const analyze = require('../utils/run');
 var Comment = require("../../db/models/comment.js");
@@ -10,7 +10,6 @@ var Trending = require("../../db/models/trending.js");
 const mongoose = require('mongoose');
 const request = require("request");
 const findComments = require('../utils/findComments');
-<<<<<<< HEAD
 var MockMongoose = require('mock-mongoose').MockMongoose;
 var mockMongoose = new MockMongoose(mongoose);
 
@@ -31,16 +30,10 @@ jest.setTimeout(3000000);
 
 beforeAll(async () => {
   // const url = `mongodb://127.0.0.1/${databaseName}`;
-  // await mongoose.connect(url, { useNewUrlParser: true });
-  mockMongoose.prepareStorage().then(function() {
-    const url = `mongodb://127.0.0.1/${databaseName}`;
-		// mongoose.connect(url, function(err) {
-		// 	//done(err);
-		// });
-    mongoose.connect(url, { useNewUrlParser: true });
-	});
-=======
-import { MongoMemoryServer } from 'mongodb-memory-server';
+  const mongo = await MongoMemoryServer.create();
+  const uri = mongo.getUri();
+  await mongoose.connect(uri, { useNewUrlParser: true });
+})
 
 
 beforeAll(async () => {
@@ -48,15 +41,15 @@ beforeAll(async () => {
   const mongo = await MongoMemoryServer.create();
   const uri = mongo.getUri();
   await mongoose.connect(uri, { useNewUrlParser: true });
->>>>>>> 20e2c7288508bcd4ee43d0387e668ed93eaaf854
 })
 
 afterAll(async () => {
-  // await Comment.deleteMany({});
-  // await Trending.deleteMany({});
+  await Comment.deleteMany({});
+  await Trending.deleteMany({});
   // Closes the Mongoose connection
-
+  //await mongoose.connection.close();
   await mongoose.connection.close();
+  // done();
 })
 
 
@@ -71,25 +64,15 @@ describe('Integration test for writing and analyzing comment data', () => {
       timestamp: Date.now().toString(),
       coinTicker: 'BTC'
     }
-    mockMongoose.prepareStorage().then(function() {
-      // mongoose.connect(url, function(err) {
-      // 	//done(err);
-      // });
-      const url = `mongodb://127.0.0.1/${databaseName}`;
-      mongoose.connect(url, { useNewUrlParser: true });
-
-      let userComment = new Comment(commentObj);
-    
-      userComment.save();
-    
-      const query = Comment.findOne({title: 'some title'}).exec();
-      expect(query.userWhoMadeComment).toBeTruthy();
-      expect(query.text).toBe('some text');
-    });
+    let userComment = new Comment(commentObj);
+    await userComment.save();
+  
+    const query = await Comment.findOne({title: 'some title'}).exec();
+    expect(query.userWhoMadeComment).toBeTruthy();
+    expect(query.text).toBe('some text');
   
   })
 
-  jest.setTimeout(3000000);
   it('Data analyzer should handle comments with improper format', async () => {
     const commentObj1 = {
       title: 'title 2',
@@ -105,62 +88,43 @@ describe('Integration test for writing and analyzing comment data', () => {
       timestamp: Date.now().toString(),
       coinTicker: 'BTC'
     };
+    let userComment1 = new Comment(commentObj1);
+    await userComment1.save();
 
-    mockMongoose.prepareStorage().then(function() {
-      const url = `mongodb://127.0.0.1/${databaseName}`;
-      // mongoose.connect(url, function(err) {
-      // 	//done(err);
-      // });
-      mongoose.connect(url, { useNewUrlParser: true });
-      let userComment1 = new Comment(commentObj1);
-      userComment1.save();
-  
-      let userComment2 = new Comment(commentObj2);
-      userComment2.save();
-  
-      const query = findComments();
-      expect(query).toHaveLength(1);
-    });
-    
+    let userComment2 = new Comment(commentObj2);
+    await userComment2.save();
+
+    const query = await findComments();
+    expect(query).toHaveLength(1);
   })
 
-  jest.setTimeout(3000000);
   it('Data analyzer is correctly identifying trending coins', async () => {
+    const commentObj3 = {
+      title: 'title 4',
+      text: 'important text',
+      userWhoMadeComment: 'person d',
+      timestamp: Date.now().toString(),
+      coinTicker: 'ETH'
+    };
+    let userComment3 = new Comment(commentObj3);
+    await userComment3.save();
 
-    mockMongoose.prepareStorage().then( async function() {
-      const url = `mongodb://127.0.0.1/${databaseName}`;
-      // mongoose.connect(url, function(err) {
-      // 	//done(err);
-      // });
-      mongoose.connect(url, { useNewUrlParser: true });
-      const commentObj3 = {
-        title: 'title 4',
-        text: 'important text',
-        userWhoMadeComment: 'person d',
-        timestamp: Date.now().toString(),
-        coinTicker: 'ETH'
-      };
-      let userComment3 = new Comment(commentObj3);
-      userComment3.save();
-  
-      const commentObj4 = {
-        title: 'title 5',
-        text: 'important text again',
-        userWhoMadeComment: 'person e',
-        timestamp: Date.now().toString(),
-        coinTicker: 'BTC'
-      };
-      
-      let userComment4 = new Comment(commentObj4);
-      userComment4.save();
-  
-      // execute data analyzer
-      analyze();
-  
-      const query = Trending.findOne({}).exec();
-      //expect(query.coinTicker).toBe('BTC');
-      //expect(query.numComments).toBe(2);
-    });
+    const commentObj4 = {
+      title: 'title 5',
+      text: 'important text again',
+      userWhoMadeComment: 'person e',
+      timestamp: Date.now().toString(),
+      coinTicker: 'BTC'
+    };
+    let userComment4 = new Comment(commentObj4);
+    await userComment4.save();
+
+    // execute data analyzer
+    await analyze();
+
+    const query = await Trending.findOne({}).exec();
+    expect(query.coinTicker).toBe('BTC');
+    expect(query.numComments).toBe(2);
   })
 
 

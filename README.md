@@ -12,7 +12,6 @@ You can refer to the link here to see the application deployed on Heroku: https:
 * **Tyler Walker** - *Developer* - [tgwalker93](https://github.com/tgwalker93)
 * **Adam Haze** - *Developer* - [adamhaze](https://github.com/adamhaze)
 * **Alex Orlowski** - *Developer* - [aorlowski-cu](https://github.com/aorlowski-cu)
-* **Chidima Okafor** - *Developer* - [chok2409](https://github.com/chok2409)
 
 
 ---

@@ -1,16 +1,11 @@
 # Crypto Gremlins
 
-This application was built with the `NodeJS`, `ReactJS`, `MongoDB`, and `Bootstrap` frameworks. It also uses a few different libraries, as seen below.
+Crypto Gremlins is a Crypto Review website where users can leave reviews on specific crypto projects which are pulled from CoinMarketCap. This application was built with the`MongoDB`, `Express`,`React`, `Node`, and `Bootstrap` frameworks. For more documentation on this application, [please check out our wiki!](https://github.com/tgwalker93/CryptoGremlins/wiki)
 
 ## Getting Started
 
 You can refer to the link here to see the application deployed on Heroku: https://crypto-gremlins.herokuapp.com/
 
-
-## Libraries Used
-
-* [react-router](https://www.npmjs.com/package/react-router) 
-* [react-cookie](https://www.npmjs.com/package/universal-cookie)
 
 ## Author
 
@@ -18,7 +13,6 @@ You can refer to the link here to see the application deployed on Heroku: https:
 * **Adam Haze** - *Developer* - [adamhaze](https://github.com/adamhaze)
 * **Alex Orlowski** - *Developer* - [aorlowski-cu](https://github.com/aorlowski-cu)
 * **Chidima Okafor** - *Developer* - [chok2409](https://github.com/chok2409)
-
 
 
 ---

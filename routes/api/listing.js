@@ -1,91 +1,54 @@
-var path = require('path');
-var request = require("request");
-var express = require("express");
-var app = express.Router();
+const express = require('express');
+const router = express.Router();
 
-//Database Models 
-var Listing = require("../../db/models/listing.js");
+// Database Models 
+const Listing = require("../../db/models/listing.js");
 
-//listing Routes BEGIN ---------------------------------------------------------------
+// listing Routes BEGIN ---------------------------------------------------------------
 
-//Get all crypto projects
-app.get("/getAllCryptoProjects", function(req, res) { 
-    resultObj = {
+// Get all crypto projects
+router.get("/getAllCryptoProjects", async (req, res) => {
+    const resultObj = {};
 
+    try {
+        const docs = await Listing.find({}).populate("comments").exec();
+        resultObj.docs = docs;
+        resultObj.error = null;
+        res.json(resultObj);
+    } catch (error) {
+        resultObj.error = error;
+        res.json(resultObj);
     }
-    Listing.find({})
-        // ..and populate all of the bug comments associated with it
-        .populate("comments")
-        .exec(function (err, docs) {
-        if (!err) { 
-            console.log(docs);
-            resultObj.docs = docs;
-            resultObj.error = null;
-            res.json(resultObj);
-        }
-        else {
-            resultObj.error = err;
-            result.json(resultObj);
-        }
-    });
 });
 
-//Getting Crypto Project and comments from the Database!
-app.get("/getAllCommentsOfCryptoProject/:cryptoProjectID", function (req, res) {
+// Getting Crypto Project and comments from the Database!
+router.get("/getAllCommentsOfCryptoProject/:cryptoProjectID", async (req, res) => {
+    const resultObj = {};
 
-    var resultObj = {
-        
+    try {
+        const doc = await Listing.findOne({ "_id": req.params.cryptoProjectID }).populate("comments").exec();
+        resultObj.doc = doc;
+        res.json(resultObj);
+    } catch (error) {
+        resultObj.error = true;
+        resultObj.errorObj = error;
+        res.json(resultObj);
     }
-    //Use the org id param to find the organization and its associated bugs
-    Listing.findOne({ "_id": req.params.cryptoProjectID })
-        // ..and populate all of the bug comments associated with it
-        .populate("comments")
-        // now, execute our query
-        .exec(function (error, doc) {
-            // Log any errors
-            if (error) {
-                //Error 
-                console.log(error);
-                resultObj.error = true;
-                resultObj.errorObj = error;
-                res.json(resultObj);
-            }
-            // Otherwise, send the doc to the browser as a json object
-            else {
-                resultObj.doc = doc;
-                res.json(resultObj);
-            }
-        });
+});
 
-})
+// Search Crypto Projects!
+router.post("/searchCryptoProjects", async (req, res) => {
+    const resultObj = {};
 
-//Search Crypto Projects!
-app.post("/searchCryptoProjects", function (req, res) {
-
-    var resultObj = {
-        
+    try {
+        const docs = await Listing.find({ "name": { "$regex": req.body.searchText, "$options": "i" } }).populate("comments").exec();
+        resultObj.docs = docs;
+        res.json(resultObj);
+    } catch (error) {
+        resultObj.error = true;
+        resultObj.errorObj = error;
+        res.json(resultObj);
     }
-    //Use the org id param to find the organization and its associated bugs
-    Listing.find({ "name": { "$regex": req.body.searchText, "$options": "i" } })
-        // ..and populate all of the bug comments associated with it
-        .populate("comments")
-        // now, execute our query
-        .exec(function (error, docs) {
-            // Log any errors
-            if (error) {
-                //Error 
-                console.log(error);
-                resultObj.error = true;
-                resultObj.errorObj = error;
-                res.json(resultObj);
-            }
-            // Otherwise, send the doc to the browser as a json object
-            else {
-                resultObj.docs = docs;
-                res.json(resultObj);
-            }
-        });
+});
 
-})
-
-module.exports = app;
+module.exports = router;
